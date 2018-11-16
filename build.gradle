@@ -67,7 +67,7 @@ compileJava.options.compilerArgs += '-parameters'
 compileTestJava.options.compilerArgs += '-parameters'
 
 task stage(type: Copy, dependsOn: [clean, build]) {
-    from jar.archivePath
+    from 'build/libs/micronaut-0.1-all.jar'
     into project.rootDir
     rename {
         'app.jar'
