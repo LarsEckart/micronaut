@@ -1,7 +1,7 @@
 #micronaut on heroku
 
 
-##scale down
+##shut down
 
 heroku ps:scale web=0
 
