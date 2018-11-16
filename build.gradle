@@ -65,3 +65,5 @@ run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1')
 mainClassName = "micro.Application"
 compileJava.options.compilerArgs += '-parameters'
 compileTestJava.options.compilerArgs += '-parameters'
+
+task stage(dependsOn: ['build', 'clean'])
