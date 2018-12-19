@@ -16,3 +16,7 @@ heroku ps
 ##deploy
 
 git push heroku master
+
+##try
+
+heroku open
