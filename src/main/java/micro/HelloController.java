@@ -13,6 +13,10 @@ public class HelloController {
 
     @Get("/hello/{name}")
     public Single<String> hello(@NotBlank String name) {
-        return Single.just("Hello " + name + "!");
+        @NotBlank String template = "Hello " + name + "!";
+        if ("Lars".equalsIgnoreCase(name)) {
+            template += " tubli poiss :-)";
+        }
+        return Single.just(template);
     }
 }
