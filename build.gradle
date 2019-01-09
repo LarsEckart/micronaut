@@ -22,6 +22,12 @@ apply plugin:"net.ltgt.apt-idea"
 
 
 repositories {
+    maven {
+        url  "https://dl.bintray.com/micronaut/core-releases-local"
+        //content {
+        //    includeGroupByRegex "io\\.micronaut.*"
+        //}
+    }
     mavenCentral()
 }
 
