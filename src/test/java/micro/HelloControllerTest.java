@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @MicronautTest
 public class HelloControllerTest {
@@ -15,8 +15,6 @@ public class HelloControllerTest {
 
     @Test
     void testHello() {
-        assertEquals(
-                "Hello Fred!",
-                helloClient.hello("Fred").blockingGet());
+        assertThat(helloClient.hello("Fred")).isEqualTo("Hello Fred!");
     }
 }

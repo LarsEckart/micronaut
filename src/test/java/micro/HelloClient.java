@@ -2,7 +2,6 @@ package micro;
 
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.client.annotation.Client;
-import io.reactivex.Single;
 
 import javax.validation.constraints.NotBlank;
 
@@ -10,5 +9,5 @@ import javax.validation.constraints.NotBlank;
 public interface HelloClient {
 
     @Get("/hello/{name}")
-    Single<String> hello(@NotBlank String name);
+    String hello(@NotBlank String name);
 }
