@@ -6,24 +6,25 @@ buildscript {
     dependencies {
         classpath "com.github.jengelman.gradle.plugins:shadow:2.0.4"
         classpath "io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE"
-        classpath "net.ltgt.gradle:gradle-apt-plugin:0.15"
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.20"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.20.0"
     }
 }
 
 version "0.1"
 group "example"
 
-apply plugin:"io.spring.dependency-management"
-apply plugin:"com.github.johnrengelman.shadow"
-apply plugin:"application"
-apply plugin:"java"
-apply plugin:"net.ltgt.apt-eclipse"
-apply plugin:"net.ltgt.apt-idea"
-
+apply plugin: "io.spring.dependency-management"
+apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: "application"
+apply plugin: "java"
+apply plugin: "net.ltgt.apt-eclipse"
+apply plugin: "net.ltgt.apt-idea"
+apply plugin: "com.github.ben-manes.versions"
 
 repositories {
     maven {
-        url  "https://dl.bintray.com/micronaut/core-releases-local"
+        url "https://dl.bintray.com/micronaut/core-releases-local"
         //content {
         //    includeGroupByRegex "io\\.micronaut.*"
         //}
@@ -38,22 +39,24 @@ dependencyManagement {
 }
 
 dependencies {
-    annotationProcessor "io.micronaut:micronaut-inject-java"
-    annotationProcessor "io.micronaut:micronaut-validation"
-    annotationProcessor "io.micronaut.configuration:micronaut-openapi"
-    compile "io.micronaut:micronaut-http-client"    
-    compile "io.micronaut:micronaut-http-server-netty"
-    compile "io.micronaut:micronaut-inject"
-    compile "io.micronaut:micronaut-runtime"
-    compile "io.micronaut.configuration:micronaut-hibernate-validator"
-    
-    compile "io.swagger.core.v3:swagger-annotations:2.0.4"
-    compileOnly "io.micronaut:micronaut-inject-java"
+    annotationProcessor 'io.micronaut:micronaut-inject-java'
+    annotationProcessor 'io.micronaut:micronaut-validation'
+    annotationProcessor 'io.micronaut.configuration:micronaut-openapi'
+    compileOnly 'io.micronaut:micronaut-inject-java'
+    compile 'io.micronaut:micronaut-http-client'
+    compile 'io.micronaut:micronaut-http-server-netty'
+    compile 'io.micronaut:micronaut-inject'
+    compile 'io.micronaut:micronaut-runtime'
+    compile 'io.micronaut.configuration:micronaut-hibernate-validator'
+
+    compile "io.swagger.core.v3:swagger-annotations:2.0.6"
     runtime "ch.qos.logback:logback-classic:1.2.3"
-    testCompile "io.micronaut:micronaut-inject-java"
-    testCompile "io.micronaut.test:micronaut-test-junit5:1.0.0.RC2"
-    testCompile "org.mockito:mockito-junit-jupiter:2.22.0"
-    testRuntime "org.junit.jupiter:junit-jupiter-engine:5.1.0"
+
+    testCompile 'io.micronaut:micronaut-inject-java'
+    testCompile 'io.micronaut.test:micronaut-test-junit5:1.0.1'
+    testCompile 'org.mockito:mockito-junit-jupiter:2.23.4'
+    testCompile 'org.assertj:assertj-core:3.11.1'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
 }
 
 shadowJar {
@@ -67,8 +70,11 @@ test {
 run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1')
 
 mainClassName = "micro.Application"
-compileJava.options.compilerArgs += '-parameters'
-compileTestJava.options.compilerArgs += '-parameters'
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+    options.compilerArgs.add('-parameters')
+}
 
 task stage(type: Copy, dependsOn: [clean, build]) {
     from 'build/libs/micronaut-0.1-all.jar'
