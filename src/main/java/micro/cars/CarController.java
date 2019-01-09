@@ -1,9 +1,9 @@
-package micro;
+package micro.cars;
 
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
-import micro.ioc.Vehicle;
+import micro.cars.Vehicle;
 
 @Controller("/cars")
 public class CarController {

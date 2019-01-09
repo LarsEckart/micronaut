@@ -1,4 +1,4 @@
-package micro.ioc;
+package micro.cars;
 
 import javax.inject.Singleton;
 

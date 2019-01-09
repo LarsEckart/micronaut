@@ -1,4 +1,4 @@
-package micro;
+package micro.cars;
 
 import io.micronaut.test.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ class CarControllerTest {
     CarControllerClient client;
 
     @Test
-    void return_start_text_from_injected_engine() {
+    void return_start_text_from_injected_qualified_engine() {
         assertThat(client.getAllCars()).isEqualTo("Starting V8");
     }
 }
