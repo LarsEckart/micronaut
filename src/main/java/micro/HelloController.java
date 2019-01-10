@@ -3,6 +3,7 @@ package micro;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Header;
 import io.micronaut.validation.Validated;
 
 import javax.validation.constraints.NotBlank;
@@ -23,5 +24,10 @@ public class HelloController {
     @Get(produces = MediaType.TEXT_PLAIN)
     public String index() {
         return "Hello World";
+    }
+
+    @Get("/header")
+    public String helloHeader(@Header("Content-Type") String contentType) {
+        return "best hello for " + contentType;
     }
 }
