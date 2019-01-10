@@ -6,6 +6,6 @@ import io.micronaut.http.client.annotation.Client;
 @Client("/cars")
 public interface CarControllerClient {
 
-    @Get()
+    @Get("/all")
     String getAllCars();
 }

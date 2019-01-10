@@ -14,7 +14,7 @@ public class CarController {
         this.vehicle = vehicle;
     }
 
-    @Get(uri="/", produces = MediaType.TEXT_PLAIN)
+    @Get(uri="/all", produces = MediaType.TEXT_PLAIN)
     public String getAllCars() {
         return vehicle.start();
     }
