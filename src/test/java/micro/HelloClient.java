@@ -1,6 +1,7 @@
 package micro;
 
 import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Header;
 import io.micronaut.http.client.annotation.Client;
 
 import javax.validation.constraints.NotBlank;
@@ -13,4 +14,7 @@ public interface HelloClient {
 
     @Get()
     String index();
+
+    @Get("/header")
+    String helloHeader(@Header("x-name") String name);
 }

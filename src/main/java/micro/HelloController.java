@@ -27,7 +27,7 @@ public class HelloController {
     }
 
     @Get("/header")
-    public String helloHeader(@Header("Content-Type") String contentType) {
-        return "best hello for " + contentType;
+    public String helloHeader(@Header("x-name") String name) {
+        return "best hello for " + name;
     }
 }
