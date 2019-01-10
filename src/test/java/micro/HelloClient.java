@@ -5,9 +5,12 @@ import io.micronaut.http.client.annotation.Client;
 
 import javax.validation.constraints.NotBlank;
 
-@Client("/")
+@Client("/hello")
 public interface HelloClient {
 
-    @Get("/hello/{name}")
+    @Get("/{name}")
     String hello(@NotBlank String name);
+
+    @Get()
+    String index();
 }
