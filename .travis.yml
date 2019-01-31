@@ -10,6 +10,8 @@ branches:
   only:
     - master
 
+install: true
+
 script:
   - ./gradlew check
 
