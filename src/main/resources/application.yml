@@ -1,3 +1,13 @@
 micronaut:
   application:
     name: micronaut
+endpoints:
+  info:
+    enabled: true
+    sensitive: false
+  metrics:
+    enabled: true
+    sensitive: false
+  routes:
+    enabled: true
+    sensitive: false
