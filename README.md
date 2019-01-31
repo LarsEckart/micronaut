@@ -1,22 +1,26 @@
-#micronaut on heroku
+# my micronaut playground
+
+continuously deployed to heroku by travis.
 
 
-##shut down
+## directly interact with the web app through heroku cli
+
+### shut down
 
 heroku ps:scale web=0
 
-##scale up
+### scale up
 
 heroku ps:scale web=1
 
-##get dyno info
+### get dyno info
 
 heroku ps
 
-##deploy
+### deploy
 
 git push heroku master
 
-##try
+### try
 
 heroku open
