@@ -1,16 +1,13 @@
 package micro;
 
-import io.micronaut.runtime.server.EmbeddedServer;
-import io.micronaut.test.annotation.MicronautTest;
-import io.restassured.http.Header;
-import org.junit.jupiter.api.Test;
-
 import javax.inject.Inject;
 
-import static io.restassured.RestAssured.get;
+import io.micronaut.runtime.server.EmbeddedServer;
+import io.micronaut.test.annotation.MicronautTest;
+import org.junit.jupiter.api.Test;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @MicronautTest
 public class RestAssuredTest {
@@ -28,5 +25,27 @@ public class RestAssuredTest {
         then().
             header("x-my-header", equalTo("foo")).
             body(equalTo("Hello Lars"));
+    }
+
+    @Test
+    void conference_found() {
+        given().
+            port(server.getPort()).
+        when().
+            get("/conference/Gr8Conf").
+        then().
+            statusCode(200).
+            body(equalTo("{\"name\":\"Gr8Conf\",\"location\":\"Copenhagen\"}"));
+    }
+
+    @Test
+    void conference_not_found_empty_optional() {
+        given().
+            port(server.getPort()).
+        when().
+            get("/conference/Gr8Confxxx").
+        then().
+            statusCode(404).
+            body(equalTo("{\"_links\":{\"self\":{\"href\":\"/conference/Gr8Confxxx\",\"templated\":false}},\"message\":\"Page Not Found\"}"));
     }
 }
