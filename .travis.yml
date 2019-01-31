@@ -1,20 +1,28 @@
 language: java
+
 jdk:
-- openjdk11
+  - openjdk11
+
 os:
-- linux
+  - linux
+
 branches:
   only:
-  - master
-cache:
-  directories:
-  - "$HOME/.gradle"
-before_script: 
+    - master
+
 script:
-- "./gradlew clean build"
-after_script: 
+  - ./gradlew build
+
 deploy:
   provider: heroku
   app: micronaut
   api_key:
     secure: FkBfYnkZ3otz0Z1xjCupo0S2Br7Clm92AoEcpq1Kn2yqu8QDBV/hXMmpjPvVsqgw55J/IH4YzQ8r1WKDhD1QMD8+qTOnQuk09Ukm+OMj0An1a6AjzLklV+98P7tbRydASm3mGngsBT8G5m4irgMS2NdZFlPLN1UDOcboQPILOpuxwUYEzZyZZgypBXyh6ZbKkNYmg3EcujrtHmD3iaHagtLkILMOm/iFFgyvA3kjPCR4120KbGAdTjPVvRyiWwH5RLSrzEL/KxBKyCEStfXtsG2FUhpeZV7Dg6DNaLRrlW4Xz6lC/eB1gHY8y3lmOMe93hIh3i4zodk2bM90yXvm94iqTrBbAX+zNXreecsW1gsdXbZYfp2cPj7y72qzgHwi4NsN6uX5fjMiqY9FzS1ovkOx11M85UnHHhLw4iJdQzpp7surlp5VzkKDkmH6OKR5UglqALOz6Xl7hrOP8o3HhntmkVDuruL+TKfJ0dOwWLmU13m2frFBc5mRYgSt7Vi+yh1tHxXhPdWEwH1nFyARTfDRZ6pizNeKBOMVKT7jXLWBHh8mkihuNusrKBUw448KPzoIV2BYtTSkyvJTq4jGmM7lkRbwYxYq4p3EELNGBbYJKQDYrGeNgdFuAstUAw5QIYWxJFAMRKQJR7gb6KWYkc9n1OcUqeU9znsf2UE2cNU=
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
