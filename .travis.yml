@@ -11,7 +11,7 @@ branches:
     - master
 
 script:
-  - ./gradlew build
+  - ./gradlew check
 
 deploy:
   provider: heroku
