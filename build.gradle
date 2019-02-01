@@ -11,10 +11,6 @@ buildscript {
     }
 }
 
-plugins {
-    id "com.heroku.sdk.heroku-gradle" version "1.0.4"
-}
-
 version "0.1"
 group "example"
 
@@ -82,11 +78,17 @@ tasks.withType(JavaCompile) {
     options.compilerArgs.add('-parameters')
 }
 
-heroku {
-    appName = "micronaut"
-    includes = ["build/libs/micronaut-0.1-all.jar"]
-    includeBuildDir = false
-    processTypes(
-            web: "java -jar build/libs/icronaut-0.1-all.jar"
-    )
+task stage(type: Copy, dependsOn: [clean, assemble]) {
+    from 'build/libs/micronaut-0.1-all.jar'
+    into project.rootDir
+    rename {
+        'app.jar'
+    }
+}
+stage.mustRunAfter(clean)
+
+clean {
+    doLast {
+        project.file('app.jar').delete()
+    }
 }
