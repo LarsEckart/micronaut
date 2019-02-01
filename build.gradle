@@ -78,7 +78,7 @@ tasks.withType(JavaCompile) {
     options.compilerArgs.add('-parameters')
 }
 
-task stage(type: Copy, dependsOn: [clean, assemble]) {
+task stage(type: Copy, dependsOn: [assemble]) {
     from 'build/libs/micronaut-0.1-all.jar'
     into project.rootDir
     rename {
