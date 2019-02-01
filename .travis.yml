@@ -8,7 +8,7 @@ branches:
     - master
 install: true
 script:
-  - "./gradlew check stage"
+  - "./gradlew check prepareDeploy"
 deploy:
   provider: heroku
   strategy: git
