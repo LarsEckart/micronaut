@@ -78,18 +78,14 @@ tasks.withType(JavaCompile) {
     options.compilerArgs.add('-parameters')
 }
 
-task prepareDeploy(type: Copy, dependsOn: [assemble]) {
+task stage(type: Copy, dependsOn: [assemble]) {
     from 'build/libs/micronaut-0.1-all.jar'
     into project.rootDir
     rename {
         'app.jar'
     }
 }
-prepareDeploy.mustRunAfter(clean)
-
-task stage {
-    // do nothing, travis pushed the jar already
-}
+stage.mustRunAfter(clean)
 
 clean {
     doLast {
