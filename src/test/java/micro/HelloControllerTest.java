@@ -1,9 +1,9 @@
 package micro;
 
+import javax.inject.Inject;
+
 import io.micronaut.test.annotation.MicronautTest;
 import org.junit.jupiter.api.Test;
-
-import javax.inject.Inject;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,6 +20,6 @@ public class HelloControllerTest {
 
     @Test
     void method_name_index_results_in_root_path() {
-        assertThat(helloClient.index()).isEqualTo("Hello World");
+        assertThat(helloClient.index()).isEqualTo("Gute Nacht");
     }
 }
