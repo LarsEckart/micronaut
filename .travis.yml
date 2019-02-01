@@ -15,7 +15,7 @@ deploy:
   provider: heroku
   app: micronaut
   api_key:
-    secure: giXQwFBspS0QiyeeMp+xdzbMn8B98buvDccbjoLPphcwQ6e9H2GFlG2vhBANbjixWjv68Bf79eY4eiGvYOTrJukfRtyEwF2Dxcshqaa0df2n19yzRoZFlRMQ1HEw4uEieJfbUmFL6rqixPHNC0V3rSoVrFeVwWXtksB2qnyZh8Qep7wYvG10h8Jvp7VytepR3y+KIb7fxidCuD6k7Mvd2PAp0YIsDRMmMURCx1Jr9PVdQqCS+KvEPAqjIpd7HPUZF5H+tk0VRWbo6EVuo5B7ph1ijrJaO+Fs6GeESnb4gWWv31FjIrqUAL6yNxAwr8K3S+/3SmoLOscxZDMiOjTzTxs9iH4ZfHOMRU/sGdyEnZB9Hx4HdtMd6fMNcFiFYyCME+vwoGHHtzodJX45Qq9Ciyw4dh8KwHw/GZdJubYuz5j2OE2ACFQb2uuK2up94GC39Tpx0HfxmAsjOa/DCRhJkPg77kCUyePlVSZnHfZkB1kuPQtISDtDjCbjbZ6vdn0i9CXk3HaifcA0eq/xgWhIBtT7gaX4/qUu156mr7MHMyoowVoMr6n2huezJ553z03MoCQGc+Ms9I6hKdCuF1riQCfJeM+9/NDnz2D20hgbjvEd88PnB8SqgKYqPmHbuudbN6gDNbWLpHsih1mC7MZ+l5jwSg7/6wluOCU3oTkspco=
+    secure: $HEROKU_AUTH_TOKEN
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
