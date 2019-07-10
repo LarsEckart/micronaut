@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import javax.inject.Inject;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 @MicronautTest
 class AuthTests {
@@ -25,6 +26,17 @@ class AuthTests {
     }
 
     @Test
+    void returns_400_when_sender_unknown() {
+        given().
+            port(server.getPort()).
+            header("sender", "any").
+        when().
+            get("/sms/auth").
+        then().
+            statusCode(400);
+    }
+
+    @Test
     void returns_401_when_header_sender_empty() {
         given().
             port(server.getPort()).
@@ -33,6 +45,28 @@ class AuthTests {
             get("/sms/auth").
         then().
             statusCode(401);
+    }
+
+    @Test
+    void returns_token_for_sender_123() {
+        given().
+            port(server.getPort()).
+            header("sender", "123").
+        when().
+            get("/sms/auth").
+        then().
+            statusCode(200).body(equalTo("secret321"));
+    }
+
+    @Test
+    void returns_token_for_sender_456() {
+        given().
+            port(server.getPort()).
+            header("sender", "456").
+        when().
+            get("/sms/auth").
+        then().
+            statusCode(200).body(equalTo("secret654"));
     }
 
 }
