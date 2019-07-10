@@ -6,8 +6,6 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Header;
 import io.micronaut.http.annotation.Post;
 
-import java.util.Optional;
-
 @Controller("/messaging/send")
 public class MessageController {
 
@@ -27,16 +25,6 @@ public class MessageController {
         if (split.length != 2) {
             return HttpResponse.unauthorized();
         }
-        String user = split[0];
-        Optional<String> token = repository.getToken(user);
-        if (token.isEmpty()) {
-            return HttpResponse.unauthorized();
-        } else {
-            if (token.get().equals(split[1])) {
-                return HttpResponse.ok();
-            }
-            return HttpResponse.unauthorized();
-        }
-
+        return HttpResponse.unauthorized();
     }
 }

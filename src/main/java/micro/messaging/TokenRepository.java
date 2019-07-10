@@ -5,7 +5,7 @@ import java.util.Optional;
 import javax.inject.Singleton;
 
 @Singleton
-public class TokenRepository {
+class TokenRepository {
 
     private Map<String, String> tokens = Map.of("123", "secret321", "456", "secret654");
 
