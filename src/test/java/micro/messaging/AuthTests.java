@@ -44,7 +44,7 @@ class AuthTests {
         when().
             get("/messaging/auth").
         then().
-            statusCode(401);
+            statusCode(400);
     }
 
     @Test

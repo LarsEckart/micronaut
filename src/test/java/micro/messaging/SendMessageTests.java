@@ -16,7 +16,7 @@ public class SendMessageTests {
     EmbeddedServer server;
 
     @Test
-    void expose_endpoint_to_return_information_about_a_users_appointments() {
+    void bad_request_when_no_auth_header() {
         //language=JSON
         String payload = "{\n"
                 + "  \"text\": \"hello world\",\n"
@@ -32,6 +32,27 @@ public class SendMessageTests {
         when().
             post("/messaging/send").
         then().
-            statusCode(200);
+            statusCode(400);
+    }
+
+    @Test
+    void unauthorized_when_auth_header_not_valid() {
+        //language=JSON
+        String payload = "{\n"
+                + "  \"text\": \"hello world\",\n"
+                + "  \"to\": \"01603668822\",\n"
+                + "  \"from\": \"0211\",\n"
+                + "  \"display_name\": \"ECHO\"\n"
+                + "}";
+
+        given().
+            port(server.getPort()).
+            contentType(ContentType.JSON).
+            header("auth", "123_").
+            body(payload).
+        when().
+            post("/messaging/send").
+        then().
+            statusCode(401);
     }
 }
