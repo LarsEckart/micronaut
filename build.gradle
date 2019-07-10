@@ -61,7 +61,8 @@ tasks.withType(JavaCompile) {
 }
 
 task stage(type: Copy, dependsOn: [assemble]) {
-    from 'build/libs/micronaut-0.1-all.jar'
+    from 'build/libs'
+    include '*.jar'
     into project.rootDir
     rename {
         'app.jar'
