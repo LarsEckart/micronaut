@@ -1,4 +1,4 @@
-package micro.sms.auth;
+package micro.messaging;
 
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
@@ -8,7 +8,7 @@ import io.micronaut.http.annotation.Header;
 
 import java.util.Map;
 
-@Controller("/sms/auth")
+@Controller("/messaging/auth")
 public class AuthController {
 
     private Map<String, String> tokens = Map.of("123", "secret321", "456", "secret654");

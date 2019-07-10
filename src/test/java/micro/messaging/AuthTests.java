@@ -1,4 +1,4 @@
-package micro.sms.auth;
+package micro.messaging;
 
 import io.micronaut.runtime.server.EmbeddedServer;
 import io.micronaut.test.annotation.MicronautTest;
@@ -20,7 +20,7 @@ class AuthTests {
         given().
             port(server.getPort()).
         when().
-            get("/sms/auth").
+            get("/messaging/auth").
         then().
             statusCode(400);
     }
@@ -31,7 +31,7 @@ class AuthTests {
             port(server.getPort()).
             header("sender", "any").
         when().
-            get("/sms/auth").
+            get("/messaging/auth").
         then().
             statusCode(400);
     }
@@ -42,7 +42,7 @@ class AuthTests {
             port(server.getPort()).
             header("sender", "").
         when().
-            get("/sms/auth").
+            get("/messaging/auth").
         then().
             statusCode(401);
     }
@@ -53,7 +53,7 @@ class AuthTests {
             port(server.getPort()).
             header("sender", "123").
         when().
-            get("/sms/auth").
+            get("/messaging/auth").
         then().
             statusCode(200).body(equalTo("secret321"));
     }
@@ -64,7 +64,7 @@ class AuthTests {
             port(server.getPort()).
             header("sender", "456").
         when().
-            get("/sms/auth").
+            get("/messaging/auth").
         then().
             statusCode(200).body(equalTo("secret654"));
     }
