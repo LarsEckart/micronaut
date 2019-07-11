@@ -6,8 +6,6 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Header;
 
-import java.util.Optional;
-
 @Controller("/messaging/auth")
 public class AuthController {
 
@@ -19,13 +17,9 @@ public class AuthController {
 
     @Get(produces = MediaType.TEXT_PLAIN)
     public HttpResponse index(@Header("sender") String sender) {
-        if (sender == null) {
+        if (sender == null || sender.isBlank()) {
             return HttpResponse.badRequest();
         }
-        Optional<String> token = repository.getToken(sender);
-        if (token.isPresent()) {
-            return HttpResponse.ok(token.get());
-        }
-        return HttpResponse.badRequest("unknown sender");
+        return HttpResponse.ok(repository.getToken(sender));
     }
 }

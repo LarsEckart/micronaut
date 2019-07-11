@@ -25,6 +25,9 @@ public class MessageController {
         if (split.length != 2) {
             return HttpResponse.unauthorized();
         }
+        if (repository.validToken(split[0], split[1])) {
+            return HttpResponse.ok();
+        }
         return HttpResponse.unauthorized();
     }
 }

@@ -1,15 +1,26 @@
 package micro.messaging;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Optional;
 import javax.inject.Singleton;
 
 @Singleton
 class TokenRepository {
 
-    private Map<String, String> tokens = Map.of("123", "secret321", "456", "secret654");
+    private TokenGenerator tokenGenerator;
 
-    public Optional<String> getToken(String key) {
-        return Optional.ofNullable(tokens.get(key));
+    private Map<String, String> tokens = new LinkedHashMap<>();
+
+    TokenRepository(TokenGenerator tokenGenerator) {
+        this.tokenGenerator = tokenGenerator;
+    }
+
+    public String getToken(String key) {
+        tokens.putIfAbsent(key, tokenGenerator.next());
+        return tokens.get(key);
+    }
+
+    public boolean validToken(String key, String token) {
+        return token.equals(tokens.get(key));
     }
 }
