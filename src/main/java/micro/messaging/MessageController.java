@@ -41,15 +41,15 @@ public class MessageController {
             if (text == null) {
                 return HttpResponse.badRequest("text is mandatory");
             }
-            String from = (String) body.get().get("from");
+            String from = String.valueOf(body.get().get("from"));
             if (from == null) {
                 return HttpResponse.badRequest("from is mandatory");
             }
-            String to = (String) body.get().get("to");
+            String to = String.valueOf(body.get().get("to"));
             if (to == null) {
                 return HttpResponse.badRequest("to is mandatory");
             }
-            String displayName = (String) body.get().get("display_name");
+            String displayName = String.valueOf(body.get().get("display_name"));
             if (displayName == null) {
                 return HttpResponse.badRequest("display_name is mandatory");
             }
