@@ -6,12 +6,16 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Header;
 import io.micronaut.http.annotation.Post;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.Optional;
 
 @Controller("/messaging/send")
 public class MessageController {
+
+    private static Logger logger = LoggerFactory.getLogger(MessageController.class);
 
     private TokenRepository repository;
 
@@ -24,6 +28,9 @@ public class MessageController {
         if (auth == null || auth.isBlank()) {
             return HttpResponse.unauthorized();
         }
+
+        logger.info("auth: " + auth);
+        logger.info("body: " + request.toString());
 
         String[] split = auth.split("_");
         if (split.length != 2) {
