@@ -1,6 +1,5 @@
 package micro.messaging;
 
-import com.google.common.flogger.FluentLogger;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
@@ -10,12 +9,11 @@ import io.micronaut.http.annotation.Post;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Level;
 
 @Controller("/messaging/send")
 public class MessageController {
 
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(MessageController.class);
 
     private TokenRepository repository;
 
@@ -29,8 +27,8 @@ public class MessageController {
             return HttpResponse.unauthorized();
         }
 
-        logger.at(Level.INFO).log("auth: " + auth);
-        logger.at(Level.INFO).log("body: " + request.getBody().get().toString());
+        log.info("auth: " + auth);
+        log.info("body: " + request.getBody().get().toString());
 
         String[] split = auth.split("_");
         if (split.length != 2) {
@@ -45,11 +43,11 @@ public class MessageController {
                 return HttpResponse.badRequest("text is mandatory");
             }
             String from = String.valueOf(body.get().get("from"));
-            if (from == null|| "null".equals(from)) {
+            if (from == null || "null".equals(from)) {
                 return HttpResponse.badRequest("from is mandatory");
             }
             String to = String.valueOf(body.get().get("to"));
-            if (to == null|| "null".equals(to)) {
+            if (to == null || "null".equals(to)) {
                 return HttpResponse.badRequest("to is mandatory");
             }
             String displayName = String.valueOf(body.get().get("display_name"));
