@@ -18,14 +18,14 @@ class TwilioClientTest {
     void name() throws IOException, InterruptedException {
         MockWebServer mockWebServer = new MockWebServer();
         mockWebServer.start();
-        mockWebServer.enqueue(new MockResponse().setBody("{}"));
+        mockWebServer.enqueue(new MockResponse().setBody("{\"sid\":\"x\"}").addHeader("Content-type", "application/json"));
 
         URL url = new URL("http", "localhost", mockWebServer.getPort(), "");
         RxHttpClient client = RxHttpClient.create(url);
         Config configuration = new Config();
-        configuration.accountSid = "any";
+        configuration.accountSid = "anyAccountSid";
         configuration.authToken = "any";
-        configuration.path = "any";
+        configuration.path = "/2010-04-01/Accounts/{accountSid}/Messages.json";
         configuration.receiver = "12345678";
         TwilioClient twilioClient = new TwilioClient(client, configuration);
 
@@ -33,6 +33,7 @@ class TwilioClientTest {
 
         RecordedRequest recordedRequest = mockWebServer.takeRequest(1, TimeUnit.SECONDS);
         String actual = recordedRequest.getBody().readUtf8();
+        assertThat(recordedRequest.getPath()).isEqualTo("/2010-04-01/Accounts/anyAccountSid/Messages.json");
         assertThat(actual).contains("body=hello");
         assertThat(actual).contains("from=%2B37258821553");
         assertThat(actual).contains("to=%2B12345678");

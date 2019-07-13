@@ -11,7 +11,7 @@ import org.reactivestreams.Publisher;
 @Filter("/**")
 @Requires(property = Config.PREFIX + ".account.sid")
 @Requires(property = Config.PREFIX + ".auth.token")
-public class TwilioFilter implements HttpClientFilter {
+class TwilioFilter implements HttpClientFilter {
 
     private final Config configuration;
 

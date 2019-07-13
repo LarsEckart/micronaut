@@ -1,6 +1,6 @@
 package micro.messaging.twilio;
 
-public class ApiResponse {
+class ApiResponse {
 
     private String sid;
     private String date_created;

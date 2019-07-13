@@ -1,12 +1,14 @@
 package micro.messaging.twilio;
 
 import io.micronaut.http.HttpRequest;
-import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
+import io.micronaut.http.MutableHttpRequest;
 import io.micronaut.http.client.RxHttpClient;
 import io.micronaut.http.client.annotation.Client;
+import io.micronaut.http.uri.UriBuilder;
 import micro.messaging.SMSGateway;
 
+import java.util.Collections;
 import javax.inject.Singleton;
 
 @Singleton
@@ -26,11 +28,16 @@ class TwilioClient implements SMSGateway {
 
     @Override
     public void send() {
-        HttpResponse<ApiResponse> httpResponse = httpClient.toBlocking().exchange(
-                HttpRequest.POST(configuration.path,
-                        new TwilioMessage("+" + configuration.receiver, "+37258821553", "hello"))
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .accept(MediaType.APPLICATION_HAL_JSON_TYPE),
-                ApiResponse.class);
+        String uri = UriBuilder.of(configuration.path)
+                .expand(Collections.singletonMap("accountSid", configuration.accountSid))
+                .toString();
+
+        TwilioMessage body = new TwilioMessage("+" + configuration.receiver, "+37258821553", "hello");
+
+        MutableHttpRequest<TwilioMessage> request = HttpRequest.POST(uri, body)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .accept(MediaType.APPLICATION_HAL_JSON_TYPE);
+
+        httpClient.toBlocking().retrieve(request, ApiResponse.class);
     }
 }
