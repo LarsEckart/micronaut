@@ -16,7 +16,7 @@ class RestAssuredTest {
     EmbeddedServer server;
 
     @Test
-    void exposes_health_endpoint() {
+    void exposes_health_endpoint_due_to_micronaut_management_dependency() {
         given().
             port(server.getPort()).
         when().
@@ -26,24 +26,12 @@ class RestAssuredTest {
     }
 
     @Test
-    void exposes_metrics_endpoint() {
+    void exposes_metrics_endpoint_due_to_micronaut_micrometer_core_dependency() {
         given().
             port(server.getPort()).
         when().
             get("/metrics").
         then().
             statusCode(200);
-    }
-
-    @Test
-    void makes_request_tomicronaut_server() {
-        given().
-            port(server.getPort()).
-            param("name", "Lars").
-        when().
-            get("/request/hello").
-        then().
-            header("x-my-header", equalTo("foo")).
-            body(equalTo("Hello Lars"));
     }
 }
