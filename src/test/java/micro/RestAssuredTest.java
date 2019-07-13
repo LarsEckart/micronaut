@@ -10,10 +10,20 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 @MicronautTest
-public class RestAssuredTest {
+class RestAssuredTest {
 
     @Inject
     EmbeddedServer server;
+
+    @Test
+    void exposes_health_endpoint() {
+        given().
+            port(server.getPort()).
+        when().
+            get("/health").
+        then().
+            body(equalTo("up"));
+    }
 
     @Test
     void makes_request_tomicronaut_server() {
