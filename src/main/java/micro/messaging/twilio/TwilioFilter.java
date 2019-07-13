@@ -9,8 +9,8 @@ import io.micronaut.http.filter.HttpClientFilter;
 import org.reactivestreams.Publisher;
 
 @Filter("/**")
-@Requires(property = Config.PREFIX + ".accountSid")
-@Requires(property = Config.PREFIX + ".authToken")
+@Requires(property = Config.PREFIX + ".account.sid")
+@Requires(property = Config.PREFIX + ".auth.token")
 public class TwilioFilter  implements HttpClientFilter {
 
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TwilioFilter.class);
