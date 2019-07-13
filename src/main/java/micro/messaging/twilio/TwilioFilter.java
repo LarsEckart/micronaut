@@ -11,19 +11,16 @@ import org.reactivestreams.Publisher;
 @Filter("/**")
 @Requires(property = Config.PREFIX + ".account.sid")
 @Requires(property = Config.PREFIX + ".auth.token")
-public class TwilioFilter  implements HttpClientFilter {
-
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TwilioFilter.class);
+public class TwilioFilter implements HttpClientFilter {
 
     private final Config configuration;
 
-    public TwilioFilter(Config configuration ) {
+    public TwilioFilter(Config configuration) {
         this.configuration = configuration;
     }
 
     @Override
     public Publisher<? extends HttpResponse<?>> doFilter(MutableHttpRequest<?> request, ClientFilterChain chain) {
-        log.info("filter " + configuration.accountSid);
         return chain.proceed(request.basicAuth(configuration.accountSid, configuration.authToken));
     }
 }
