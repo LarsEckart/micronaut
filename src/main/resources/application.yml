@@ -8,3 +8,5 @@ endpoints:
   metrics:
     enabled: true
     sensitive: false
+myapp:
+  endpoint: ${myapp.mystuff:`default-v`}
