@@ -21,7 +21,6 @@ public class AuthController {
 
     @Get(produces = MediaType.TEXT_PLAIN)
     public HttpResponse index(@Header("sender") String sender) {
-        log.info(config.accountSid);
         if (sender == null || sender.isBlank()) {
             return HttpResponse.badRequest();
         }
