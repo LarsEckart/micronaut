@@ -13,6 +13,8 @@ import org.reactivestreams.Publisher;
 @Requires(property = Config.PREFIX + ".authToken")
 public class TwilioFilter  implements HttpClientFilter {
 
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TwilioFilter.class);
+
     private final Config configuration;
 
     public TwilioFilter(Config configuration ) {
@@ -21,6 +23,7 @@ public class TwilioFilter  implements HttpClientFilter {
 
     @Override
     public Publisher<? extends HttpResponse<?>> doFilter(MutableHttpRequest<?> request, ClientFilterChain chain) {
+        log.info("filter " + configuration.accountSid);
         return chain.proceed(request.basicAuth(configuration.accountSid, configuration.authToken));
     }
 }
