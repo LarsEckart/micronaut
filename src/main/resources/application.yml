@@ -11,3 +11,4 @@ endpoints:
 twilio:
   account-sid: ${twilio.account.sid:`secret-default`}
   auth-token: ${twilio.auth.token:`secret-default`}
+  path: ${twilio.path:`secret-default`}

@@ -16,9 +16,11 @@ public class MessageController {
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(MessageController.class);
 
     private TokenRepository repository;
+    private final SMSGateway gateway;
 
-    public MessageController(TokenRepository repository) {
+    public MessageController(TokenRepository repository, SMSGateway gateway) {
         this.repository = repository;
+        this.gateway = gateway;
     }
 
     @Post(produces = MediaType.TEXT_PLAIN)
@@ -26,9 +28,6 @@ public class MessageController {
         if (auth == null || auth.isBlank()) {
             return HttpResponse.unauthorized();
         }
-
-        log.info("auth: " + auth);
-        log.info("body: " + request.getBody().get().toString());
 
         String[] split = auth.split("_");
         if (split.length != 2) {
@@ -54,6 +53,10 @@ public class MessageController {
             if (displayName == null || "null".equals(displayName)) {
                 return HttpResponse.badRequest("display_name is mandatory");
             }
+
+            gateway.send();
+
+            log.info("message sent");
 
             return HttpResponse.ok();
         }

@@ -12,11 +12,9 @@ public class AuthController {
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(AuthController.class);
 
     private TokenRepository repository;
-    private final Config config;
 
-    public AuthController(TokenRepository repository, Config config) {
+    public AuthController(TokenRepository repository) {
         this.repository = repository;
-        this.config = config;
     }
 
     @Get(produces = MediaType.TEXT_PLAIN)
