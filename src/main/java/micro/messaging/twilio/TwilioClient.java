@@ -1,14 +1,17 @@
 package micro.messaging.twilio;
 
+import io.micronaut.core.type.Argument;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.MutableHttpRequest;
 import io.micronaut.http.client.RxHttpClient;
 import io.micronaut.http.client.annotation.Client;
+import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.http.uri.UriBuilder;
 import micro.messaging.SMSGateway;
 
 import java.util.Collections;
+import java.util.Map;
 import javax.inject.Singleton;
 
 @Singleton
@@ -27,7 +30,7 @@ class TwilioClient implements SMSGateway {
     }
 
     @Override
-    public void send() {
+    public Map send() {
         String uri = UriBuilder.of(configuration.path)
                 .expand(Collections.singletonMap("accountSid", configuration.accountSid))
                 .toString();
@@ -35,9 +38,18 @@ class TwilioClient implements SMSGateway {
         TwilioMessage body = new TwilioMessage("+" + configuration.receiver, "+37258821553", "hello");
 
         MutableHttpRequest<TwilioMessage> request = HttpRequest.POST(uri, body)
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED_TYPE)
                 .accept(MediaType.APPLICATION_HAL_JSON_TYPE);
 
-        httpClient.toBlocking().retrieve(request, ApiResponse.class);
+        try {
+            return httpClient.toBlocking().retrieve(
+                            request,
+                            Argument.of(Map.class, String.class, String.class),
+                            Argument.of(Map.class, String.class, String.class));
+        } catch (HttpClientResponseException e) {
+            Map responseBody = (Map) e.getResponse().body();
+            log.error(responseBody.toString());
+            return responseBody;
+        }
     }
 }

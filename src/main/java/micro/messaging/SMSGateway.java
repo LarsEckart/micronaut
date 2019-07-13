@@ -1,7 +1,8 @@
 package micro.messaging;
 
+import java.util.Map;
+
 public interface SMSGateway {
 
-    void send();
-
+    Map send();
 }

@@ -2,6 +2,8 @@ package micro.messaging;
 
 import io.micronaut.context.annotation.Primary;
 
+import java.util.Collections;
+import java.util.Map;
 import javax.inject.Singleton;
 
 @Singleton
@@ -9,7 +11,7 @@ import javax.inject.Singleton;
 public class TestSMSGateway implements SMSGateway {
 
     @Override
-    public void send() {
-
+    public Map send() {
+        return Collections.singletonMap("anyKey", "anyValue");
     }
 }
