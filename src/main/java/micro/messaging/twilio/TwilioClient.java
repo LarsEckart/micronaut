@@ -28,11 +28,9 @@ class TwilioClient implements SMSGateway {
     public void send() {
         HttpResponse<ApiResponse> httpResponse = httpClient.toBlocking().exchange(
                 HttpRequest.POST(path,
-                        new TwilioMessage("+37258141113", "+37258821553", "micronaut rules"))
+                        new TwilioMessage("+37258141113", "+37258821553", "hello"))
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .accept(MediaType.APPLICATION_HAL_JSON_TYPE),
                 ApiResponse.class);
-
-        log.info(httpResponse.body().getBody());
     }
 }
