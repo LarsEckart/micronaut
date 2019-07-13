@@ -18,4 +18,7 @@ class Config {
 
     @NotBlank
     String path;
+
+    @NotBlank
+    String receiver;
 }

@@ -15,20 +15,20 @@ class TwilioClient implements SMSGateway {
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TwilioClient.class);
 
     private final RxHttpClient httpClient;
-    private final String path;
+    private final Config configuration;
 
     public TwilioClient(
             @Client(Config.TWILIO_URL) RxHttpClient httpClient,
             Config configuration) {
         this.httpClient = httpClient;
-        path = configuration.path;
+        this.configuration = configuration;
     }
 
     @Override
     public void send() {
         HttpResponse<ApiResponse> httpResponse = httpClient.toBlocking().exchange(
-                HttpRequest.POST(path,
-                        new TwilioMessage("+37258141113", "+37258821553", "hello"))
+                HttpRequest.POST(configuration.path,
+                        new TwilioMessage("+" + configuration.receiver, "+37258821553", "hello"))
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .accept(MediaType.APPLICATION_HAL_JSON_TYPE),
                 ApiResponse.class);
