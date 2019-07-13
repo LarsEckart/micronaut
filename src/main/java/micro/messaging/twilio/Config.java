@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 class Config {
 
     static final String PREFIX = "twilio";
-    static final String TWILIO_URL = "https://api.twilio.com\"";
+    static final String TWILIO_URL = "https://api.twilio.com";
 
     @NotBlank
     String authToken;
