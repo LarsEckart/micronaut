@@ -22,7 +22,17 @@ class RestAssuredTest {
         when().
             get("/health").
         then().
-            body(equalTo("up"));
+            body(equalTo("{\"status\":\"UP\"}"));
+    }
+
+    @Test
+    void exposes_metrics_endpoint() {
+        given().
+            port(server.getPort()).
+        when().
+            get("/metrics").
+        then().
+            statusCode(200);
     }
 
     @Test

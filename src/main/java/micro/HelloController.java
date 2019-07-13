@@ -1,12 +1,12 @@
 package micro;
 
-import javax.validation.constraints.NotBlank;
-
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Header;
 import io.micronaut.validation.Validated;
+
+import javax.validation.constraints.NotBlank;
 
 @Controller("/hello")
 @Validated
