@@ -1,6 +1,6 @@
 package micro.messaging;
 
-import io.micronaut.context.annotation.Value;
+import io.micronaut.context.annotation.Property;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
@@ -14,8 +14,8 @@ public class AuthController {
 
     private TokenRepository repository;
 
-    @Value("${myapp.endpoint}")
-    protected String endpoint;
+    @Property(name = "myapp.endpoint")
+    private String endpoint;
 
     public AuthController(TokenRepository repository) {
         this.repository = repository;
