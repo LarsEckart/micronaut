@@ -40,7 +40,7 @@ class AuthTests {
     void returns_token_for_any_sender() {
         given().
             port(server.getPort()).
-            header("sender", "123").
+            header("sender", "secretSender").
         when().
             get("/messaging/auth").
         then().

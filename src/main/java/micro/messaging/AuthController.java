@@ -11,10 +11,12 @@ public class AuthController {
 
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(AuthController.class);
 
-    private TokenRepository repository;
+    private final TokenRepository repository;
+    private final AuthConfiguration config;
 
-    public AuthController(TokenRepository repository) {
+    public AuthController(TokenRepository repository, AuthConfiguration config) {
         this.repository = repository;
+        this.config = config;
     }
 
     @Get(produces = MediaType.TEXT_PLAIN)
@@ -22,6 +24,9 @@ public class AuthController {
         if (sender == null || sender.isBlank()) {
             return HttpResponse.badRequest();
         }
-        return HttpResponse.ok(repository.getToken(sender));
+        if (config.sender.equals(sender)) {
+            return HttpResponse.ok(repository.getToken(sender));
+        }
+        return HttpResponse.unauthorized();
     }
 }

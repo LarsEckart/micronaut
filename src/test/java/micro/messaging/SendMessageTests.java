@@ -63,7 +63,7 @@ class SendMessageTests {
     void ok_when_auth_header_present_and_valid_token_and_body() {
         Response sender = given().
                     port(server.getPort()).
-                    header("sender", "123").
+                    header("sender", "secretSender").
                 when().
                     get("/messaging/auth");
 
@@ -78,7 +78,7 @@ class SendMessageTests {
         given().
             port(server.getPort()).
             contentType(ContentType.JSON).
-            header("auth", "123_" + sender.getBody().print()).
+            header("auth", "secretSender_" + sender.getBody().print()).
             body(payload).
         when().
             post("/messaging/send").
@@ -90,7 +90,7 @@ class SendMessageTests {
     void response_code_400_when_no_text() {
         Response sender = given().
                     port(server.getPort()).
-                    header("sender", "123").
+                    header("sender", "secretSender").
                 when().
                     get("/messaging/auth");
 
@@ -104,7 +104,7 @@ class SendMessageTests {
         given().
             port(server.getPort()).
             contentType(ContentType.JSON).
-            header("auth", "123_" + sender.getBody().print()).
+            header("auth", "secretSender_" + sender.getBody().print()).
             body(payload).
         when().
             post("/messaging/send").
@@ -117,7 +117,7 @@ class SendMessageTests {
     void response_code_400_when_no_to() {
         Response sender = given().
                     port(server.getPort()).
-                    header("sender", "123").
+                    header("sender", "secretSender").
                 when().
                     get("/messaging/auth");
 
@@ -131,7 +131,7 @@ class SendMessageTests {
         given().
             port(server.getPort()).
             contentType(ContentType.JSON).
-            header("auth", "123_" + sender.getBody().print()).
+            header("auth", "secretSender_" + sender.getBody().print()).
             body(payload).
         when().
             post("/messaging/send").
@@ -144,7 +144,7 @@ class SendMessageTests {
     void response_code_400_when_no_from() {
         Response sender = given().
                     port(server.getPort()).
-                    header("sender", "123").
+                    header("sender", "secretSender").
                 when().
                     get("/messaging/auth");
 
@@ -158,7 +158,7 @@ class SendMessageTests {
         given().
             port(server.getPort()).
             contentType(ContentType.JSON).
-            header("auth", "123_" + sender.getBody().print()).
+            header("auth", "secretSender_" + sender.getBody().print()).
             body(payload).
         when().
             post("/messaging/send").
@@ -171,7 +171,7 @@ class SendMessageTests {
     void response_code_400_when_no_display_name() {
         Response sender = given().
                     port(server.getPort()).
-                    header("sender", "123").
+                    header("sender", "secretSender").
                 when().
                     get("/messaging/auth");
 
@@ -185,7 +185,7 @@ class SendMessageTests {
         given().
             port(server.getPort()).
             contentType(ContentType.JSON).
-            header("auth", "123_" + sender.getBody().print()).
+            header("auth", "secretSender_" + sender.getBody().print()).
             body(payload).
         when().
             post("/messaging/send").

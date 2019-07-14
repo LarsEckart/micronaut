@@ -13,3 +13,5 @@ twilio:
   auth-token: ${twilio.auth.token:`secret-default`}
   path: ${twilio.path:`secret-default`}
   number: ${twilio.number:`secret-default`}
+myauth:
+  sender: ${auth.sender:}
