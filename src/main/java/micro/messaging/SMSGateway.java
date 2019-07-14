@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface SMSGateway {
 
-    Map send();
+    Map send(String to, String text);
 }

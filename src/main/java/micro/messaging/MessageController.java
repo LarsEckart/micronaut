@@ -54,7 +54,7 @@ public class MessageController {
                 return HttpResponse.badRequest("display_name is mandatory");
             }
 
-            gateway.send();
+            gateway.send(to, text);
 
             log.info("message sent");
 

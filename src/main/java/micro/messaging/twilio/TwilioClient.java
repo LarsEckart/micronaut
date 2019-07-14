@@ -1,9 +1,13 @@
 package micro.messaging.twilio;
 
-import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.Message;
+import io.micronaut.core.type.Argument;
+import io.micronaut.http.HttpRequest;
+import io.micronaut.http.MediaType;
+import io.micronaut.http.MutableHttpRequest;
 import io.micronaut.http.client.RxHttpClient;
 import io.micronaut.http.client.annotation.Client;
+import io.micronaut.http.client.exceptions.HttpClientResponseException;
+import io.micronaut.http.uri.UriBuilder;
 import micro.messaging.SMSGateway;
 
 import java.util.Collections;
@@ -26,39 +30,28 @@ class TwilioClient implements SMSGateway {
     }
 
     @Override
-    public Map send() {
-        Twilio.init(configuration.accountSid, configuration.authToken);
-
-        Message message = Message.creator(
-                new com.twilio.type.PhoneNumber("+" + configuration.receiver),
-                new com.twilio.type.PhoneNumber("+37258821553"),
-                "hello")
-                .create();
-        log.info("sms sid: " + message.getSid());
-        return Collections.singletonMap("sid", message.getSid());
-
-        /*
+    public Map send(String to, String text) {
         String uri = UriBuilder.of(configuration.path)
                 .expand(Collections.singletonMap("accountSid", configuration.accountSid))
                 .toString();
 
-        TwilioMessage body = new TwilioMessage("+" + configuration.receiver, "+37258821553", "hello");
+        Map<String, String> body = Map.of("To", "+" + to,
+                "From", "+" + configuration.number,
+                "Body", text);
 
-        MutableHttpRequest<TwilioMessage> request = HttpRequest.POST(uri, body)
+        MutableHttpRequest<Map<String, String>> request = HttpRequest.POST(uri, body)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_TYPE)
                 .accept(MediaType.APPLICATION_HAL_JSON_TYPE);
 
         try {
             return httpClient.toBlocking().retrieve(
-                            request,
-                            Argument.of(Map.class, String.class, String.class),
-                            Argument.of(Map.class, String.class, String.class));
+                    request,
+                    Argument.of(Map.class, String.class, String.class),
+                    Argument.of(Map.class, String.class, String.class));
         } catch (HttpClientResponseException e) {
             Map responseBody = (Map) e.getResponse().body();
             log.error(responseBody.toString());
             return responseBody;
         }
-         */
-
     }
 }

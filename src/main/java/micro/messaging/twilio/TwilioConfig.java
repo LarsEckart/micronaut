@@ -20,5 +20,5 @@ class TwilioConfig {
     String path;
 
     @NotBlank
-    String receiver;
+    String number;
 }
