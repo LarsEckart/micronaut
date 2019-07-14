@@ -7,10 +7,11 @@ import io.micronaut.http.MutableHttpRequest;
 import io.micronaut.http.client.RxHttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.http.uri.UriBuilder;
-import io.reactivex.Flowable;
+import io.reactivex.Single;
 import micro.messaging.SMSGateway;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Singleton;
 
@@ -30,7 +31,7 @@ class TwilioClient implements SMSGateway {
     }
 
     @Override
-    public Flowable<Map<String, String>> send(String to, String text) {
+    public Single<Map<String, String>> send(String to, String text) {
         String uri = UriBuilder.of(configuration.path)
                 .expand(Collections.singletonMap("accountSid", configuration.accountSid))
                 .toString();
@@ -46,7 +47,7 @@ class TwilioClient implements SMSGateway {
         return httpClient.retrieve(
                 request,
                 Argument.of(Map.class, String.class, Object.class),
-                Argument.of(Map.class, String.class, Object.class)).map(r -> Collections.singletonMap("result", "ok"));
+                Argument.of(Map.class, String.class, Object.class)).collect(HashMap::new, (container, value) -> container.put("result", "ok"));
     }
 
 }

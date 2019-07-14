@@ -2,6 +2,7 @@ package micro.messaging.twilio;
 
 import io.micronaut.http.client.RxHttpClient;
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -31,9 +32,9 @@ class TwilioClientTest {
         configuration.number = "12345678";
         TwilioClient twilioClient = new TwilioClient(client, configuration);
 
-        Flowable<Map<String, String>> flowable = twilioClient.send("987654321", "hello");
+        Single<Map<String, String>> flowable = twilioClient.send("987654321", "hello");
 
-        flowable.blockingFirst();
+        flowable.blockingGet();
 
         RecordedRequest recordedRequest = mockWebServer.takeRequest(1, TimeUnit.SECONDS);
         assertThat(recordedRequest.getPath()).isEqualTo("/2010-04-01/Accounts/anyAccountSid/Messages.json");
