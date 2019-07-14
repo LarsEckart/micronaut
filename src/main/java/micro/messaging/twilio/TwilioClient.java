@@ -30,7 +30,7 @@ class TwilioClient implements SMSGateway {
     }
 
     @Override
-    public Flowable<Map> send(String to, String text) {
+    public Flowable<Map<String, String>> send(String to, String text) {
         String uri = UriBuilder.of(configuration.path)
                 .expand(Collections.singletonMap("accountSid", configuration.accountSid))
                 .toString();
@@ -45,7 +45,8 @@ class TwilioClient implements SMSGateway {
 
         return httpClient.retrieve(
                 request,
-                Argument.of(Map.class, String.class, String.class),
-                Argument.of(Map.class, String.class, String.class));
+                Argument.of(Map.class, String.class, Object.class),
+                Argument.of(Map.class, String.class, Object.class)).map(r -> Collections.singletonMap("result", "ok"));
     }
+
 }

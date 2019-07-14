@@ -6,5 +6,5 @@ import java.util.Map;
 
 public interface SMSGateway {
 
-    Flowable<Map> send(String to, String text);
+    Flowable<Map<String, String>> send(String to, String text);
 }
