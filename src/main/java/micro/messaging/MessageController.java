@@ -1,14 +1,14 @@
 package micro.messaging;
 
-import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Header;
 import io.micronaut.http.annotation.Post;
+import io.reactivex.Flowable;
 
 import java.util.Map;
-import java.util.Optional;
 
 @Controller("/messaging/send")
 public class MessageController {
@@ -24,42 +24,36 @@ public class MessageController {
     }
 
     @Post(produces = MediaType.TEXT_PLAIN)
-    public HttpResponse index(@Header("auth") String auth, HttpRequest<Map<String, Object>> request) {
+    public Flowable<HttpResponse> index(@Header("auth") String auth, @Body Map<String, Object> map) {
         if (auth == null || auth.isBlank()) {
-            return HttpResponse.unauthorized();
+            return Flowable.just(HttpResponse.unauthorized());
         }
 
         String[] split = auth.split("_");
         if (split.length != 2) {
-            return HttpResponse.unauthorized();
+            return Flowable.just(HttpResponse.unauthorized());
         }
         if (repository.validToken(split[0], split[1])) {
 
-            Optional<Map<String, Object>> body = request.getBody();
-
-            String text = String.valueOf(body.get().get("text"));
+            String text = String.valueOf(map.get("text"));
             if (text == null || "null".equals(text)) {
-                return HttpResponse.badRequest("text is mandatory");
+                return Flowable.just(HttpResponse.badRequest("text is mandatory"));
             }
-            String from = String.valueOf(body.get().get("from"));
+            String from = String.valueOf(map.get("from"));
             if (from == null || "null".equals(from)) {
-                return HttpResponse.badRequest("from is mandatory");
+                return Flowable.just(HttpResponse.badRequest("from is mandatory"));
             }
-            String to = String.valueOf(body.get().get("to"));
+            String to = String.valueOf(map.get("to"));
             if (to == null || "null".equals(to)) {
-                return HttpResponse.badRequest("to is mandatory");
+                return Flowable.just(HttpResponse.badRequest("to is mandatory"));
             }
-            String displayName = String.valueOf(body.get().get("display_name"));
+            String displayName = String.valueOf(map.get("display_name"));
             if (displayName == null || "null".equals(displayName)) {
-                return HttpResponse.badRequest("display_name is mandatory");
+                return Flowable.just(HttpResponse.badRequest("display_name is mandatory"));
             }
 
-            gateway.send(to, text);
-
-            log.info("message sent");
-
-            return HttpResponse.ok();
+            return gateway.send(to, text).map(m -> HttpResponse.ok());
         }
-        return HttpResponse.unauthorized();
+        return Flowable.just(HttpResponse.unauthorized());
     }
 }

@@ -6,8 +6,8 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.MutableHttpRequest;
 import io.micronaut.http.client.RxHttpClient;
 import io.micronaut.http.client.annotation.Client;
-import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.http.uri.UriBuilder;
+import io.reactivex.Flowable;
 import micro.messaging.SMSGateway;
 
 import java.util.Collections;
@@ -30,7 +30,7 @@ class TwilioClient implements SMSGateway {
     }
 
     @Override
-    public Map send(String to, String text) {
+    public Flowable<Map> send(String to, String text) {
         String uri = UriBuilder.of(configuration.path)
                 .expand(Collections.singletonMap("accountSid", configuration.accountSid))
                 .toString();
@@ -43,15 +43,9 @@ class TwilioClient implements SMSGateway {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED_TYPE)
                 .accept(MediaType.APPLICATION_HAL_JSON_TYPE);
 
-        try {
-            return httpClient.toBlocking().retrieve(
-                    request,
-                    Argument.of(Map.class, String.class, String.class),
-                    Argument.of(Map.class, String.class, String.class));
-        } catch (HttpClientResponseException e) {
-            Map responseBody = (Map) e.getResponse().body();
-            log.error(responseBody.toString());
-            return responseBody;
-        }
+        return httpClient.retrieve(
+                request,
+                Argument.of(Map.class, String.class, String.class),
+                Argument.of(Map.class, String.class, String.class));
     }
 }

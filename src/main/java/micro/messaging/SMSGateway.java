@@ -1,8 +1,10 @@
 package micro.messaging;
 
+import io.reactivex.Flowable;
+
 import java.util.Map;
 
 public interface SMSGateway {
 
-    Map send(String to, String text);
+    Flowable<Map> send(String to, String text);
 }

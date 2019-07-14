@@ -1,6 +1,7 @@
 package micro.messaging.twilio;
 
 import io.micronaut.http.client.RxHttpClient;
+import io.reactivex.Flowable;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -19,7 +20,7 @@ class TwilioClientTest {
     void send_request_to_twilio() throws IOException, InterruptedException {
         MockWebServer mockWebServer = new MockWebServer();
         mockWebServer.start();
-        mockWebServer.enqueue(new MockResponse().setResponseCode(400).setBody("{\"sid\":\"x\"}").addHeader("Content-type", "application/json"));
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody("{\"sid\":\"x\"}").addHeader("Content-type", "application/json"));
 
         URL url = new URL("http", "localhost", mockWebServer.getPort(), "");
         RxHttpClient client = RxHttpClient.create(url);
@@ -30,7 +31,9 @@ class TwilioClientTest {
         configuration.number = "12345678";
         TwilioClient twilioClient = new TwilioClient(client, configuration);
 
-        Map send = twilioClient.send("987654321", "hello");
+        Flowable<Map> flowable = twilioClient.send("987654321", "hello");
+
+        flowable.blockingFirst();
 
         RecordedRequest recordedRequest = mockWebServer.takeRequest(1, TimeUnit.SECONDS);
         assertThat(recordedRequest.getPath()).isEqualTo("/2010-04-01/Accounts/anyAccountSid/Messages.json");
