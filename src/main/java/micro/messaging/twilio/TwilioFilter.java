@@ -9,13 +9,13 @@ import io.micronaut.http.filter.HttpClientFilter;
 import org.reactivestreams.Publisher;
 
 @Filter("/**")
-@Requires(property = Config.PREFIX + ".account.sid")
-@Requires(property = Config.PREFIX + ".auth.token")
+@Requires(property = TwilioConfig.PREFIX + ".account.sid")
+@Requires(property = TwilioConfig.PREFIX + ".auth.token")
 class TwilioFilter implements HttpClientFilter {
 
-    private final Config configuration;
+    private final TwilioConfig configuration;
 
-    public TwilioFilter(Config configuration) {
+    public TwilioFilter(TwilioConfig configuration) {
         this.configuration = configuration;
     }
 

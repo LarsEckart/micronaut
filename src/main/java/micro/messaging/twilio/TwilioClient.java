@@ -1,13 +1,9 @@
 package micro.messaging.twilio;
 
-import io.micronaut.core.type.Argument;
-import io.micronaut.http.HttpRequest;
-import io.micronaut.http.MediaType;
-import io.micronaut.http.MutableHttpRequest;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
 import io.micronaut.http.client.RxHttpClient;
 import io.micronaut.http.client.annotation.Client;
-import io.micronaut.http.client.exceptions.HttpClientResponseException;
-import io.micronaut.http.uri.UriBuilder;
 import micro.messaging.SMSGateway;
 
 import java.util.Collections;
@@ -20,17 +16,28 @@ class TwilioClient implements SMSGateway {
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TwilioClient.class);
 
     private final RxHttpClient httpClient;
-    private final Config configuration;
+    private final TwilioConfig configuration;
 
     public TwilioClient(
-            @Client(Config.TWILIO_URL) RxHttpClient httpClient,
-            Config configuration) {
+            @Client(TwilioConfig.API_URL) RxHttpClient httpClient,
+            TwilioConfig configuration) {
         this.httpClient = httpClient;
         this.configuration = configuration;
     }
 
     @Override
     public Map send() {
+        Twilio.init(configuration.accountSid, configuration.authToken);
+
+        Message message = Message.creator(
+                new com.twilio.type.PhoneNumber("+" + configuration.receiver),
+                new com.twilio.type.PhoneNumber("+37258821553"),
+                "hello")
+                .create();
+        log.info("sms sid: " + message.getSid());
+        return Collections.singletonMap("sid", message.getSid());
+
+        /*
         String uri = UriBuilder.of(configuration.path)
                 .expand(Collections.singletonMap("accountSid", configuration.accountSid))
                 .toString();
@@ -51,5 +58,7 @@ class TwilioClient implements SMSGateway {
             log.error(responseBody.toString());
             return responseBody;
         }
+         */
+
     }
 }

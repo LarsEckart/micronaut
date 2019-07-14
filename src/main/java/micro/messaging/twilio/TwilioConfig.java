@@ -4,11 +4,11 @@ import io.micronaut.context.annotation.ConfigurationProperties;
 
 import javax.validation.constraints.NotBlank;
 
-@ConfigurationProperties(Config.PREFIX)
-class Config {
+@ConfigurationProperties(TwilioConfig.PREFIX)
+class TwilioConfig {
 
     static final String PREFIX = "twilio";
-    static final String TWILIO_URL = "https://api.twilio.com";
+    static final String API_URL = "https://api.twilio.com";
 
     @NotBlank
     String authToken;

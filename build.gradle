@@ -36,6 +36,10 @@ dependencies {
     compile "io.micronaut:micronaut-management"
     compile "io.micronaut.configuration:micronaut-micrometer-core"
 
+    // https://mvnrepository.com/artifact/com.twilio.sdk/twilio
+    compile group: 'com.twilio.sdk', name: 'twilio', version: '7.40.1'
+
+
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
     testCompile "org.junit.jupiter:junit-jupiter-api"
     testCompile "io.micronaut.test:micronaut-test-junit5"

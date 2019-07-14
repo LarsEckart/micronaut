@@ -1,11 +1,10 @@
 package micro.messaging.twilio;
 
 import io.micronaut.http.client.RxHttpClient;
-import io.reactivex.Flowable;
-import io.reactivex.disposables.Disposable;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -17,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class TwilioClientTest {
 
+    @Disabled("while using twilio sdk")
     @Test
     void name() throws IOException, InterruptedException {
         MockWebServer mockWebServer = new MockWebServer();
@@ -25,7 +25,7 @@ class TwilioClientTest {
 
         URL url = new URL("http", "localhost", mockWebServer.getPort(), "");
         RxHttpClient client = RxHttpClient.create(url);
-        Config configuration = new Config();
+        TwilioConfig configuration = new TwilioConfig();
         configuration.accountSid = "anyAccountSid";
         configuration.authToken = "any";
         configuration.path = "/2010-04-01/Accounts/{accountSid}/Messages.json";
