@@ -7,7 +7,7 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Header;
 
 @Controller("/messaging/auth")
-public class AuthController {
+class AuthController {
 
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(AuthController.class);
 
@@ -24,9 +24,10 @@ public class AuthController {
         if (sender == null || sender.isBlank()) {
             return HttpResponse.badRequest();
         }
-        if (config.sender.equals(sender)) {
-            return HttpResponse.ok(repository.getToken(sender));
+        if (!config.sender.equals(sender)) {
+            return HttpResponse.unauthorized();
         }
-        return HttpResponse.unauthorized();
+
+        return HttpResponse.ok(repository.getToken(sender));
     }
 }
