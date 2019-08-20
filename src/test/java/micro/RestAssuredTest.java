@@ -2,6 +2,7 @@ package micro;
 
 import io.micronaut.runtime.server.EmbeddedServer;
 import io.micronaut.test.annotation.MicronautTest;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
@@ -46,9 +47,11 @@ class RestAssuredTest {
     }
 
     @Test
-    void exposes_home_post_endpoint() {
+    void exposes_home_post_endpoint_for_json_requests() {
         given().
             port(server.getPort()).
+            body("{}").
+            contentType(ContentType.JSON).
         when().
             post("/").
         then().

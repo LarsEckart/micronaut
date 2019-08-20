@@ -18,7 +18,7 @@ class HomeController {
     }
 
     @Post
-    @Consumes({MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
     public HttpResponse post(@Body String text) {
         System.out.println(text);
         return HttpResponse.ok();
