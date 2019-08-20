@@ -39,17 +39,9 @@ class MessageController {
             if (text == null || "null".equals(text)) {
                 return Single.just(HttpResponse.badRequest("text is mandatory"));
             }
-            String from = String.valueOf(map.get("from"));
-            if (from == null || "null".equals(from)) {
-                return Single.just(HttpResponse.badRequest("from is mandatory"));
-            }
             String to = String.valueOf(map.get("to"));
             if (to == null || "null".equals(to)) {
                 return Single.just(HttpResponse.badRequest("to is mandatory"));
-            }
-            String displayName = String.valueOf(map.get("display_name"));
-            if (displayName == null || "null".equals(displayName)) {
-                return Single.just(HttpResponse.badRequest("display_name is mandatory"));
             }
 
             return gateway.send(to, text).map(m -> HttpResponse.ok(m.get("result")));
