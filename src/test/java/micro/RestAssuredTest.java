@@ -34,4 +34,24 @@ class RestAssuredTest {
         then().
             statusCode(200);
     }
+
+    @Test
+    void exposes_home_get_endpoint() {
+        given().
+            port(server.getPort()).
+        when().
+            get("/").
+        then().
+            statusCode(200);
+    }
+
+    @Test
+    void exposes_home_post_endpoint() {
+        given().
+            port(server.getPort()).
+        when().
+            post("/").
+        then().
+            statusCode(200);
+    }
 }
