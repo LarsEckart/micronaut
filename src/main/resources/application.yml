@@ -8,6 +8,9 @@ endpoints:
   metrics:
     enabled: true
     sensitive: false
+  env:
+    enabled: true
+    sensitive: false
 twilio:
   account-sid: ${twilio.account.sid:`secret-default`}
   auth-token: ${twilio.auth.token:`secret-default`}

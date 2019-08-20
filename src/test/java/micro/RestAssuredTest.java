@@ -37,6 +37,16 @@ class RestAssuredTest {
     }
 
     @Test
+    void exposes_env_endpoint_due_to_micronaut_micrometer_management_dependency() {
+        given().
+            port(server.getPort()).
+        when().
+            get("/env").
+        then().
+            statusCode(200);
+    }
+
+    @Test
     void exposes_home_get_endpoint() {
         given().
             port(server.getPort()).
