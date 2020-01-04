@@ -12,8 +12,6 @@ public class ApplicationStartEventListener implements ApplicationEventListener<S
     @Override
     public void onApplicationEvent(ServerStartupEvent event) {
         Flyway flyway = Flyway.configure().dataSource("jdbc:h2:mem:devDb", "sa", null).load();
-
-        flyway.clean();
         flyway.migrate();
     }
 }
