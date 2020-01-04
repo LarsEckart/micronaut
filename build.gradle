@@ -3,8 +3,8 @@ plugins {
     id "java"
     id "net.ltgt.apt-eclipse" version "0.21"
     id "net.ltgt.apt-idea" version "0.21"
-    id "com.github.johnrengelman.shadow" version "4.0.2"
-    id "com.github.ben-manes.versions" version "0.21.0"
+    id "com.github.johnrengelman.shadow" version "5.2.0"
+    id "com.github.ben-manes.versions" version "0.27.0"
     id "application"
 }
 
@@ -18,7 +18,7 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom 'io.micronaut:micronaut-bom:1.2.3'
+        mavenBom 'io.micronaut:micronaut-bom:1.2.8'
     }
 }
 
@@ -43,7 +43,7 @@ dependencies {
     testRuntime "org.junit.jupiter:junit-jupiter-engine"
 
     testCompile 'org.assertj:assertj-core:3.11.1'
-    testCompile 'io.rest-assured:rest-assured:4.0.0'
+    testCompile 'io.rest-assured:rest-assured:4.1.2'
     testCompile 'com.squareup.okhttp3:mockwebserver:4.0.1'
 }
 
