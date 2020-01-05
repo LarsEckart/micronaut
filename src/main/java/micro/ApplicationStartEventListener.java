@@ -2,6 +2,7 @@ package micro;
 
 import javax.inject.Singleton;
 
+import io.micronaut.context.annotation.Value;
 import io.micronaut.context.event.ApplicationEventListener;
 import io.micronaut.runtime.server.event.ServerStartupEvent;
 import org.flywaydb.core.Flyway;
@@ -9,9 +10,22 @@ import org.flywaydb.core.Flyway;
 @Singleton
 public class ApplicationStartEventListener implements ApplicationEventListener<ServerStartupEvent> {
 
+    @Value("${datasources.flyway.url}")
+    private String jdbcUrl;
+
+    @Value("${datasources.flyway.username}")
+    private String username;
+
+    @Value("${datasources.flyway.password}")
+    private String password;
+
     @Override
     public void onApplicationEvent(ServerStartupEvent event) {
-        Flyway flyway = Flyway.configure().dataSource("jdbc:h2:mem:devDb", "sa", null).load();
+        Flyway flyway = Flyway.configure()
+                .dataSource(jdbcUrl, username, password).load();
+
+        flyway.clean();
+
         flyway.migrate();
     }
 }

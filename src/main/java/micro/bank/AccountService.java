@@ -32,7 +32,6 @@ public class AccountService {
         to.setAmount(to.getAmount().add(amount));
         repository.save(from);
         repository.save(to);
-        //repository.flush();
         return Arrays.asList(from, to);
     }
 }
