@@ -22,7 +22,7 @@ myauth:
 
 datasources:
   default:
-    url: ${bank.db.jdbcurl:`jdbc:h2:mem:devDb`}
+    url: ${JDBC_DATABASE_URL:`jdbc:h2:mem:devDb`}
     driverClassName: ${bank.db.driver:`org.h2.Driver`}
-    username: ${bank.db.username:`sa`}
-    password: ${bank.db.password:`''`}
+    username: ${JDBC_DATABASE_USERNAME:`sa`}
+    password: ${JDBC_DATABASE_PASSWORD:`''`}
