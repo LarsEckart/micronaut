@@ -18,3 +18,11 @@ twilio:
   number: ${twilio.number:`secret-default`}
 myauth:
   sender: ${auth.sender:}
+
+
+datasources:
+  default:
+    url: ${JDBC_DATABASE_URL:`jdbc:h2:mem:devDb`}
+    driverClassName: ${bank.db.driver:`org.h2.Driver`}
+    username: ${JDBC_DATABASE_USERNAME:`sa`}
+    password: ${JDBC_DATABASE_PASSWORD:`''`}
