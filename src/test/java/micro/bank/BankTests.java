@@ -23,7 +23,8 @@ class BankTests {
         when().
             get("/account").
         then().
-            body(equalTo("[{\"amount\":111.11,\"iban\":\"FR1420041010050500013M02606\"},{\"amount\":222.22,\"iban\":\"DE89370400440532013000\"},{\"amount\":333.33,\"iban\":\"HR1210010051863000160\"}]"));
+            body(equalTo(
+                "[{\"amount\":111.11,\"iban\":\"EE1420041010050500013M02606\"},{\"amount\":222.22,\"iban\":\"FI89370400440532013000\"}]"));
     }
 
     @Test
@@ -31,9 +32,9 @@ class BankTests {
         given().
             port(server.getPort()).
         when().
-            get("/account/FR1420041010050500013M02606").
+            get("/account/EE1420041010050500013M02606").
         then().
             body("amount", is(111.11f),
-                    "iban", equalTo("FR1420041010050500013M02606"));
+                    "iban", equalTo("EE1420041010050500013M02606"));
     }
 }
