@@ -21,7 +21,7 @@ jobs:
         with:
           java-version: 11.0.5
       - name: assemble jar file
-          run: ./gradlew assemble --no-daemon --parallel --continue --build-cache
+        run: ./gradlew assemble --no-daemon --parallel --continue --build-cache
       - name: Login to Heroku Container registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
