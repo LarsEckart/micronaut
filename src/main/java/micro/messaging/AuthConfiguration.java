@@ -7,8 +7,7 @@ import javax.validation.constraints.NotBlank;
 @ConfigurationProperties(AuthConfiguration.PREFIX)
 class AuthConfiguration {
 
-    static final String PREFIX = "myauth";
+  static final String PREFIX = "myauth";
 
-    @NotBlank
-    String sender;
+  @NotBlank String sender;
 }

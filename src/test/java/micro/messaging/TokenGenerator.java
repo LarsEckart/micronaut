@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 @Primary
 public class TokenGenerator {
 
-    String next() {
-        return "42";
-    }
+  String next() {
+    return "42";
+  }
 }

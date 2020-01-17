@@ -10,19 +10,18 @@ import org.flywaydb.core.Flyway;
 @Singleton
 public class ApplicationStartEventListener implements ApplicationEventListener<ServerStartupEvent> {
 
-    @Value("${datasources.default.url}")
-    private String jdbcUrl;
-    @Value("${datasources.default.username}")
-    private String username;
-    @Value("${datasources.default.password}")
-    private String password;
+  @Value("${datasources.default.url}")
+  private String jdbcUrl;
 
-    @Override
-    public void onApplicationEvent(ServerStartupEvent event) {
-        Flyway flyway = Flyway.configure()
-                .dataSource(jdbcUrl, username, password)
-                .load();
-        flyway.migrate();
-    }
+  @Value("${datasources.default.username}")
+  private String username;
+
+  @Value("${datasources.default.password}")
+  private String password;
+
+  @Override
+  public void onApplicationEvent(ServerStartupEvent event) {
+    Flyway flyway = Flyway.configure().dataSource(jdbcUrl, username, password).load();
+    flyway.migrate();
+  }
 }
-

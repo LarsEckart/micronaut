@@ -5,7 +5,7 @@ import io.micronaut.context.annotation.Primary;
 @Primary
 public class AuthConfiguration {
 
-    static final String PREFIX = "myauth";
+  static final String PREFIX = "myauth";
 
-    String sender = "secretSender";
+  String sender = "secretSender";
 }

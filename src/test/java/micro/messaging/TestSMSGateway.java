@@ -11,8 +11,8 @@ import javax.inject.Singleton;
 @Primary
 public class TestSMSGateway implements SMSGateway {
 
-    @Override
-    public Single<Map<String, String>> send(String to, String text) {
-        return Single.just(Collections.singletonMap("anyKey", "anyValue"));
-    }
+  @Override
+  public Single<Map<String, String>> send(String to, String text) {
+    return Single.just(Collections.singletonMap("anyKey", "anyValue"));
+  }
 }

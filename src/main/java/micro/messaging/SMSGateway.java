@@ -6,5 +6,5 @@ import java.util.Map;
 
 public interface SMSGateway {
 
-    Single<Map<String, String>> send(String to, String text);
+  Single<Map<String, String>> send(String to, String text);
 }

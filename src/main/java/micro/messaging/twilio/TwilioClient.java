@@ -18,36 +18,37 @@ import javax.inject.Singleton;
 @Singleton
 class TwilioClient implements SMSGateway {
 
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TwilioClient.class);
+  private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TwilioClient.class);
 
-    private final RxHttpClient httpClient;
-    private final TwilioConfig configuration;
+  private final RxHttpClient httpClient;
+  private final TwilioConfig configuration;
 
-    public TwilioClient(
-            @Client(TwilioConfig.API_URL) RxHttpClient httpClient,
-            TwilioConfig configuration) {
-        this.httpClient = httpClient;
-        this.configuration = configuration;
-    }
+  public TwilioClient(
+      @Client(TwilioConfig.API_URL) RxHttpClient httpClient, TwilioConfig configuration) {
+    this.httpClient = httpClient;
+    this.configuration = configuration;
+  }
 
-    @Override
-    public Single<Map<String, String>> send(String to, String text) {
-        String uri = UriBuilder.of(configuration.path)
-                .expand(Collections.singletonMap("accountSid", configuration.accountSid))
-                .toString();
+  @Override
+  public Single<Map<String, String>> send(String to, String text) {
+    String uri =
+        UriBuilder.of(configuration.path)
+            .expand(Collections.singletonMap("accountSid", configuration.accountSid))
+            .toString();
 
-        Map<String, String> body = Map.of("To", "+" + to,
-                "From", "+" + configuration.number,
-                "Body", text);
+    Map<String, String> body =
+        Map.of("To", "+" + to, "From", "+" + configuration.number, "Body", text);
 
-        MutableHttpRequest<Map<String, String>> request = HttpRequest.POST(uri, body)
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED_TYPE)
-                .accept(MediaType.APPLICATION_HAL_JSON_TYPE);
+    MutableHttpRequest<Map<String, String>> request =
+        HttpRequest.POST(uri, body)
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED_TYPE)
+            .accept(MediaType.APPLICATION_HAL_JSON_TYPE);
 
-        return httpClient.retrieve(
-                request,
-                Argument.of(Map.class, String.class, Object.class),
-                Argument.of(Map.class, String.class, Object.class)).collect(HashMap::new, (container, value) -> container.put("result", "ok"));
-    }
-
+    return httpClient
+        .retrieve(
+            request,
+            Argument.of(Map.class, String.class, Object.class),
+            Argument.of(Map.class, String.class, Object.class))
+        .collect(HashMap::new, (container, value) -> container.put("result", "ok"));
+  }
 }

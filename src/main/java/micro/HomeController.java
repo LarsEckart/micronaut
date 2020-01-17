@@ -11,22 +11,16 @@ import io.micronaut.http.annotation.Post;
 @Controller
 class HomeController {
 
-    @Get
-    public HttpResponse get() {
-        System.out.println("Received request to /");
-        return HttpResponse.ok();
-    }
+  @Get
+  public HttpResponse get() {
+    System.out.println("Received request to /");
+    return HttpResponse.ok();
+  }
 
-    @Get("/lars")
-    public HttpResponse getLars() {
-        System.out.println("Received request to /");
-        return HttpResponse.ok().body("lars");
-    }
-
-    @Post
-    @Consumes({MediaType.APPLICATION_JSON})
-    public HttpResponse post(@Body String text) {
-        System.out.println(text);
-        return HttpResponse.ok();
-    }
+  @Post
+  @Consumes({MediaType.APPLICATION_JSON})
+  public HttpResponse post(@Body String text) {
+    System.out.println(text);
+    return HttpResponse.ok();
+  }
 }

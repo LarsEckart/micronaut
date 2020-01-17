@@ -13,14 +13,15 @@ import org.reactivestreams.Publisher;
 @Requires(property = TwilioConfig.PREFIX + ".auth.token")
 class TwilioFilter implements HttpClientFilter {
 
-    private final TwilioConfig configuration;
+  private final TwilioConfig configuration;
 
-    public TwilioFilter(TwilioConfig configuration) {
-        this.configuration = configuration;
-    }
+  public TwilioFilter(TwilioConfig configuration) {
+    this.configuration = configuration;
+  }
 
-    @Override
-    public Publisher<? extends HttpResponse<?>> doFilter(MutableHttpRequest<?> request, ClientFilterChain chain) {
-        return chain.proceed(request.basicAuth(configuration.accountSid, configuration.authToken));
-    }
+  @Override
+  public Publisher<? extends HttpResponse<?>> doFilter(
+      MutableHttpRequest<?> request, ClientFilterChain chain) {
+    return chain.proceed(request.basicAuth(configuration.accountSid, configuration.authToken));
+  }
 }
