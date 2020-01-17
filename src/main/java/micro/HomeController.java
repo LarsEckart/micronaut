@@ -17,6 +17,12 @@ class HomeController {
         return HttpResponse.ok();
     }
 
+    @Get("/lars")
+    public HttpResponse getLars() {
+        System.out.println("Received request to /");
+        return HttpResponse.ok().body("lars");
+    }
+
     @Post
     @Consumes({MediaType.APPLICATION_JSON})
     public HttpResponse post(@Body String text) {
