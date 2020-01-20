@@ -17,3 +17,5 @@
 https://aws.amazon.com/blogs/database/managing-postgresql-users-and-roles/
 
 ## Refactoring
+
+* try out DTOs like here: [http://www.stevenwaterman.uk/2020/01/03/rethinking-the-java-dto.html]
