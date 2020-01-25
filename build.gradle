@@ -61,11 +61,18 @@ dependencies {
     testCompile "org.testcontainers:testcontainers:1.12.3"
     testCompile "org.testcontainers:junit-jupiter:1.12.3"
     testCompile "org.testcontainers:postgresql:1.12.3"
-
 }
 
 shadowJar {
     mergeServiceFiles()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'micro.Application'
+        )
+    }
 }
 
 test {
