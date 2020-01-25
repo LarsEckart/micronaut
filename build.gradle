@@ -18,7 +18,7 @@ repositories {
 
 ext {
     micronautDataVersion = "1.0.0.M5"
-    micronautVersion = "1.2.9"
+    micronautVersion = "1.2.10"
 }
 
 dependencyManagement {

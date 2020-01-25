@@ -7,13 +7,17 @@ import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 class HomeController {
 
+  private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
   @Get
-  public HttpResponse get() {
-    System.out.println("Received request to /");
+  public HttpResponse<Void> get() {
+    logger.info("Received request to /");
     return HttpResponse.ok();
   }
 
