@@ -18,6 +18,8 @@ twilio:
   number: ${twilio.number:`secret-default`}
 myauth:
   sender: ${auth.sender:}
+honey:
+  key: ${HONEYCOMB_KEY}
 
 
 datasources:
