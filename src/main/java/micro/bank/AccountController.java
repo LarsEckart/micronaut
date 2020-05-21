@@ -3,6 +3,8 @@ package micro.bank;
 import java.math.BigDecimal;
 import java.util.List;
 
+import io.honeycomb.beeline.tracing.Beeline;
+import io.honeycomb.beeline.tracing.Span;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
@@ -12,14 +14,22 @@ import io.micronaut.http.annotation.Put;
 public class AccountController {
 
   private final AccountService service;
+  private final Beeline beeline;
 
-  public AccountController(AccountService service) {
+  public AccountController(AccountService service, Beeline beeline) {
     this.service = service;
+    this.beeline = beeline;
   }
 
   @Get("/account/{iban}")
   public Account read(@PathVariable("iban") String iban) {
-    return service.get(iban);
+    try{
+      Span span = beeline.getActiveSpan();
+      span.addField("iban", iban);
+      return service.get(iban);
+    } finally {
+      beeline.getTracer().endTrace();
+    }
   }
 
   @Get("/account")
