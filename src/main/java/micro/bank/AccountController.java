@@ -5,6 +5,7 @@ import java.util.List;
 
 import io.honeycomb.beeline.tracing.Beeline;
 import io.honeycomb.beeline.tracing.Span;
+import io.honeycomb.beeline.tracing.propagation.Propagation;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
@@ -24,7 +25,10 @@ public class AccountController {
   @Get("/account/{iban}")
   public Account read(@PathVariable("iban") String iban) {
     try{
-      Span span = beeline.getActiveSpan();
+      Span span = beeline.getSpanBuilderFactory().createBuilder()
+          .setSpanName("get-customer-data")
+          .setServiceName("customer-db-traced")
+          .build();
       span.addField("iban", iban);
       return service.get(iban);
     } finally {
