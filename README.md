@@ -43,3 +43,7 @@ export PGPASSWORD=docker
 
 docker exec -it pg-docker psql -U postgres postgres
 
+## tracing & zipkin
+
+docker run -d -p 9411:9411 openzipkin/zipkin
+

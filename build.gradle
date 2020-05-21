@@ -46,9 +46,15 @@ dependencies {
     runtime 'io.micronaut.configuration:micronaut-jdbc-tomcat'
     runtime 'org.postgresql:postgresql:42.2.4'
     implementation "jakarta.persistence:jakarta.persistence-api:2.2.2"
-    implementation 'org.flywaydb:flyway-core:6.2.0'
+    implementation 'org.flywaydb:flyway-core:6.4.2'
     implementation 'commons-validator:commons-validator:1.6'
+
     implementation 'io.honeycomb.beeline:beeline-core:1.1.0'
+
+    implementation "io.micronaut:micronaut-tracing"
+    runtime 'io.zipkin.brave:brave-instrumentation-http'
+    runtime 'io.zipkin.reporter2:zipkin-reporter'
+    implementation 'io.opentracing.brave:brave-opentracing'
 
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
     testCompile "org.junit.jupiter:junit-jupiter-api"

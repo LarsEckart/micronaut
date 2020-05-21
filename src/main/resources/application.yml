@@ -20,11 +20,16 @@ myauth:
   sender: ${auth.sender:}
 honey:
   key: ${HONEYCOMB_KEY}
-
-
 datasources:
   default:
     url: ${JDBC_DATABASE_URL}
     driverClassName: org.postgresql.Driver
     username: ${JDBC_DATABASE_USERNAME}
     password: ${JDBC_DATABASE_PASSWORD}
+tracing:
+  zipkin:
+    http:
+      url: http://localhost:9411
+    enabled: false
+    sampler:
+      probability: 1

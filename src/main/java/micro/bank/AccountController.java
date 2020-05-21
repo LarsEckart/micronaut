@@ -4,12 +4,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import io.honeycomb.beeline.tracing.Beeline;
-import io.honeycomb.beeline.tracing.Span;
-import io.honeycomb.beeline.tracing.propagation.Propagation;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Put;
+import io.micronaut.tracing.annotation.NewSpan;
+import io.micronaut.tracing.annotation.SpanTag;
 
 @Controller
 public class AccountController {
@@ -22,18 +22,10 @@ public class AccountController {
     this.beeline = beeline;
   }
 
+  @NewSpan
   @Get("/account/{iban}")
-  public Account read(@PathVariable("iban") String iban) {
-    try{
-      Span span = beeline.getSpanBuilderFactory().createBuilder()
-          .setSpanName("get-customer-data")
-          .setServiceName("customer-db-traced")
-          .build();
-      span.addField("iban", iban);
-      return service.get(iban);
-    } finally {
-      beeline.getTracer().endTrace();
-    }
+  public Account read(@SpanTag("iban") @PathVariable("iban") String iban) {
+    return service.get(iban);
   }
 
   @Get("/account")
