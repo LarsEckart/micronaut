@@ -1,7 +1,4 @@
-FROM bellsoft/liberica-openjdk-alpine-musl:11.0.5
-RUN apk --no-cache add curl
-COPY build/libs/*-all.jar micronaut.jar
-RUN adduser -D myuser
-USER myuser
-CMD java ${JAVA_OPTS} -Dmicronaut.environments=heroku -jar micronaut.jar
+FROM openjdk:14-alpine
+COPY build/libs/micronaut-*-all.jar micronaut.jar
 EXPOSE 8080
+CMD ["java", "-Dcom.sun.management.jmxremote", "-Xmx128m", "-jar", "micronaut.jar"]

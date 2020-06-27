@@ -1,11 +1,11 @@
 package micro;
 
+import javax.inject.Inject;
+
 import io.micronaut.runtime.server.EmbeddedServer;
 import io.micronaut.test.annotation.MicronautTest;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
-
-import javax.inject.Inject;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -27,7 +27,7 @@ class RestAssuredTest {
 
   @Test
   void exposes_metrics_endpoint_due_to_micronaut_micrometer_core_dependency() {
-    given().port(server.getPort()).when().get("/metrics").then().statusCode(200);
+    given().port(server.getPort()).when().get("/metrics/jvm.memory.used").then().statusCode(200);
   }
 
   @Test

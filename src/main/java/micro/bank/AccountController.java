@@ -8,8 +8,6 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Put;
-import io.micronaut.tracing.annotation.NewSpan;
-import io.micronaut.tracing.annotation.SpanTag;
 
 @Controller
 public class AccountController {
@@ -22,9 +20,8 @@ public class AccountController {
     this.beeline = beeline;
   }
 
-  @NewSpan
   @Get("/account/{iban}")
-  public Account read(@SpanTag("iban") @PathVariable("iban") String iban) {
+  public Account read(@PathVariable("iban") String iban) {
     return service.get(iban);
   }
 
