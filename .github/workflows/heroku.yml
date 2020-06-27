@@ -19,7 +19,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 11.0.5
+          java-version: 14
       - name: Test
         run: ./gradlew check --no-daemon --parallel --continue --build-cache
 #      - name: Assemble jar file
