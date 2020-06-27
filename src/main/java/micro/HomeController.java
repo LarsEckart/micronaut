@@ -37,7 +37,7 @@ class HomeController {
     List<String> l = new ArrayList<>();
     String none = null;
     l.add(none);
-    l.get(0).length();
+    l.get(0).isEmpty();
     return HttpResponse.ok();
   }
 }
