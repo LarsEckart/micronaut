@@ -1,5 +1,8 @@
 package micro;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
@@ -13,11 +16,11 @@ import org.slf4j.LoggerFactory;
 @Controller
 class HomeController {
 
-  private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+  private static final Logger log = LoggerFactory.getLogger(HomeController.class);
 
   @Get
   public HttpResponse<Void> get() {
-    logger.info("Received request to /");
+    log.info("Received request to /");
     return HttpResponse.ok();
   }
 
@@ -28,12 +31,13 @@ class HomeController {
     return HttpResponse.ok();
   }
 
-
   @Get("/npe")
   public HttpResponse<Void> getNpe() {
-    logger.info("Received request to /");
-    String test = null;
-    test.length();
+    log.info("Received request to /npe");
+    List<String> l = new ArrayList<>();
+    String none = null;
+    l.add(none);
+    l.get(0).length();
     return HttpResponse.ok();
   }
 }
