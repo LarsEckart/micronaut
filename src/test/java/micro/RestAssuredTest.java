@@ -53,4 +53,11 @@ class RestAssuredTest {
         .then()
         .statusCode(200);
   }
+
+
+  @Test
+  void helpfull_nullpointer() {
+    given().port(server.getPort()).when().get("/npe").then().statusCode(500);
+  }
+
 }

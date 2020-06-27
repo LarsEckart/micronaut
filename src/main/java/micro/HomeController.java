@@ -27,4 +27,13 @@ class HomeController {
     System.out.println(text);
     return HttpResponse.ok();
   }
+
+
+  @Get("/npe")
+  public HttpResponse<Void> getNpe() {
+    logger.info("Received request to /");
+    String test = null;
+    test.length();
+    return HttpResponse.ok();
+  }
 }
