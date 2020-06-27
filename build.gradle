@@ -33,7 +33,6 @@ dependencies {
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-management")
     implementation("io.swagger.core.v3:swagger-annotations")
-    implementation("io.micronaut:micronaut-management")
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     implementation("io.micronaut.data:micronaut-data-jdbc")
     runtimeOnly("ch.qos.logback:logback-classic")
