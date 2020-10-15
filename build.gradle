@@ -7,7 +7,6 @@ version "0.1"
 group "example"
 
 repositories {
-    maven { url "https://clojars.org/repo" }
     mavenCentral()
     jcenter()
 }
@@ -22,8 +21,6 @@ micronaut {
 }
 
 dependencies {
-    implementation 'org.graphqlize:graphqlize-java:0.1.0-alpha7'
-
     annotationProcessor(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     annotationProcessor("io.micronaut:micronaut-inject-java")
     annotationProcessor("io.micronaut:micronaut-validation")
