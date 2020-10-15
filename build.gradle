@@ -1,24 +1,29 @@
 plugins {
-    id "com.diffplug.eclipse.apt" version "3.22.0"
     id "com.github.johnrengelman.shadow" version "6.0.0"
-    id "com.github.ben-manes.versions" version "0.27.0"
-    id "application"
+    id "io.micronaut.application" version '1.0.3'
 }
 
 version "0.1"
 group "example"
 
 repositories {
+    maven { url "https://clojars.org/repo" }
     mavenCentral()
     jcenter()
 }
 
-configurations {
-    // for dependencies that are needed for development only
-    developmentOnly
+micronaut {
+    runtime "netty"
+    testRuntime "junit5"
+    processing {
+        incremental true
+        //annotations "com.example.*"
+    }
 }
 
 dependencies {
+    implementation 'org.graphqlize:graphqlize-java:0.1.0-alpha7'
+
     annotationProcessor(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     annotationProcessor("io.micronaut:micronaut-inject-java")
     annotationProcessor("io.micronaut:micronaut-validation")
@@ -122,18 +127,5 @@ stage.mustRunAfter(clean)
 clean {
     doLast {
         project.file('micronaut.jar').delete()
-    }
-}
-
-dependencyUpdates.resolutionStrategy {
-    componentSelection { rules ->
-        rules.all { ComponentSelection selection ->
-            boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm', 'preview', 'b', 'ea'].any { qualifier ->
-                selection.candidate.version ==~ /(?i).*[.-]$qualifier[.\d-+]*/
-            }
-            if (rejected) {
-                selection.reject('Release candidate')
-            }
-        }
     }
 }
