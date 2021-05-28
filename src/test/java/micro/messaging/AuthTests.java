@@ -24,9 +24,9 @@ class AuthTests {
     given()
         .port(server.getPort())
         .header("sender", "")
-        .when()
+    .when()
         .get("/messaging/auth")
-        .then()
+    .then()
         .statusCode(400);
   }
 
@@ -35,9 +35,9 @@ class AuthTests {
     given()
         .port(server.getPort())
         .header("sender", "secretSender")
-        .when()
+    .when()
         .get("/messaging/auth")
-        .then()
+    .then()
         .statusCode(200)
         .body(equalTo("42"));
   }

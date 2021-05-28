@@ -1,9 +1,9 @@
 package micro;
 
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import javax.inject.Inject;
 
 import io.micronaut.runtime.server.EmbeddedServer;
-import io.micronaut.test.annotation.MicronautTest;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -48,16 +48,50 @@ class RestAssuredTest {
         .port(server.getPort())
         .body("{}")
         .contentType(ContentType.JSON)
-        .when()
+    .when()
         .post("/")
-        .then()
+    .then()
         .statusCode(200);
   }
 
-
   @Test
   void helpfull_nullpointer() {
-    given().port(server.getPort()).when().get("/npe").then().statusCode(500);
+    given().
+        port(server.getPort()).
+    when().
+        get("/npe").
+    then().
+        statusCode(500);
+  }
+
+  @Test
+  void queryValue() {
+    given().
+        port(server.getPort()).
+    when().
+        get("/query?oldEnough=true").
+    then().
+        statusCode(200);
+  }
+
+  @Test
+  void queryValue2() {
+    given().
+        port(server.getPort()).
+    when().
+        get("/query?oldEnough=false").
+    then().
+        statusCode(400);
+  }
+
+  @Test
+  void queryValue3() {
+    given().
+        port(server.getPort()).
+    when().
+        get("/query").
+    then().
+        statusCode(400);
   }
 
 }
