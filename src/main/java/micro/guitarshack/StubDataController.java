@@ -22,7 +22,7 @@ class StubDataController {
   }
 
   @Get("/default/sales")
-  public HttpResponse<SalesTotal> salesTotal(@QueryValue String id) {
+  public HttpResponse<SalesTotal> salesTotal(@QueryValue String productId) {
     log.info("Received request to /sales");
     return HttpResponse.ok(new SalesTotal(random.nextInt(20)));
   }
