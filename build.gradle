@@ -24,7 +24,6 @@ dependencies {
     annotationProcessor("io.micronaut:micronaut-inject-java")
     annotationProcessor("io.micronaut:micronaut-validation")
     annotationProcessor("io.micronaut.data:micronaut-data-processor")
-    annotationProcessor("io.micronaut.configuration:micronaut-openapi")
     implementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     implementation("io.micronaut:micronaut-inject")
     implementation("io.micronaut:micronaut-validation")
