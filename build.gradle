@@ -1,14 +1,13 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "6.0.0"
-    id "io.micronaut.application" version '1.0.3'
+    id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("io.micronaut.application") version "1.5.0"
 }
 
 version "0.1"
-group "example"
+group "com.larseckart"
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 micronaut {
