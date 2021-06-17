@@ -19,20 +19,11 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 14
+          java-version: 16
       - name: Test
         run: ./gradlew check --no-daemon --parallel --continue --build-cache
-#      - name: Assemble jar file
-#        run: ./gradlew assemble --no-daemon --parallel --continue --build-cache
-#      - name: Login to Heroku Container registry
-#        env:
-#          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-#        run: heroku container:login
-#      - name: Build and push
-#        env:
-#          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-#        run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web
-#      - name: Release
-#        env:
-#          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-#        run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
