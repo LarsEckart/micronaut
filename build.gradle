@@ -42,7 +42,7 @@ dependencies {
     }
     runtimeOnly 'org.postgresql:postgresql:42.2.23'
     implementation 'org.flywaydb:flyway-core:6.4.2'
-    implementation 'commons-validator:commons-validator:1.6'
+    implementation 'commons-validator:commons-validator:1.7'
 
     testAnnotationProcessor(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     testAnnotationProcessor("io.micronaut:micronaut-inject-java")
