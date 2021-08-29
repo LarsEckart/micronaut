@@ -1,6 +1,6 @@
 package micro.lego;
 
-public class ProductPrice {
+class ProductPrice {
 
   private final String value;
 
