@@ -17,7 +17,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Set up JDK
-        uses: actions/setup-java@v 2
+        uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
           java-version: '16'
