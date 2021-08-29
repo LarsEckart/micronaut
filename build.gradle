@@ -37,7 +37,7 @@ dependencies {
     implementation("io.micronaut.data:micronaut-data-jdbc")
     runtimeOnly("ch.qos.logback:logback-classic")
 
-    implementation("jakarta.persistence:jakarta.persistence-api:2.2.2") {
+    implementation("jakarta.persistence:jakarta.persistence-api:3.0.0") {
         because 'imports from javax.persistence.*'
     }
     runtimeOnly 'org.postgresql:postgresql:42.2.23'
