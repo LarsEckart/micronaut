@@ -21,8 +21,9 @@ class LegoScrapper {
   public HttpResponse index() {
     final Product applesauce = new LegoScrapper().applesauce(
         "https://www.mytoys.de/lego-lego-super-mario-71377-koenig-buu-huu-und-der-spukgarten-erweiterungsset-15054902.html");
-    log.info(applesauce.toString());
-    return HttpResponse.ok(applesauce.toString());
+    final String response = applesauce.name() + " " + applesauce.price();
+    log.info(response);
+    return HttpResponse.ok(response);
   }
 
 

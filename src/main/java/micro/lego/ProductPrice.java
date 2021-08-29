@@ -17,7 +17,7 @@ class ProductPrice {
 
   @Override
   public String toString() {
-    return value;
+    return intValue() + " cents";
   }
 
 }
