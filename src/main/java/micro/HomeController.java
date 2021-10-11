@@ -1,5 +1,6 @@
 package micro;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
@@ -10,6 +11,7 @@ import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.QueryValue;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +49,32 @@ class HomeController {
       return HttpResponse.ok();
     } else {
       return HttpResponse.badRequest();
+    }
+  }
+
+  @Get("/uuid")
+  public HttpResponse<MyResponse> queryUuid() {
+    MyResponse myResponse = new MyResponse(UUID.fromString("65b26f22-b751-411f-b7eb-5dd5c4a96db8"));
+    return HttpResponse.ok(myResponse);
+  }
+
+  @Get("/uuidzero")
+  public HttpResponse<MyResponse> queryUuidZero() {
+    MyResponse myResponse = new MyResponse(UUID.fromString("00000000-0000-0000-0000-000000000000"));
+    return HttpResponse.ok(myResponse);
+  }
+
+  static class MyResponse{
+
+    @JsonInclude
+    private UUID uuid;
+
+    public MyResponse(UUID uuid) {
+      this.uuid = uuid;
+    }
+
+    public UUID getUuid() {
+      return uuid;
     }
   }
 }

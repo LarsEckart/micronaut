@@ -1,6 +1,8 @@
 package micro;
 
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
 import javax.inject.Inject;
 
 import io.micronaut.runtime.server.EmbeddedServer;
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 @MicronautTest
@@ -92,6 +95,34 @@ class RestAssuredTest {
         get("/query").
     then().
         statusCode(400);
+  }
+
+  @Test
+  void queryUuid() {
+    Response response = given().
+        port(server.getPort()).
+        when().
+        get("/uuid").
+        then().
+        statusCode(200).
+        extract().response();
+    ResponseBody body = response.getBody();
+
+    assertThat(body.print()).isEqualTo("{\"uuid\":\"65b26f22-b751-411f-b7eb-5dd5c4a96db8\"}");
+  }
+
+  @Test
+  void queryUuidZero() {
+    Response response = given().
+        port(server.getPort()).
+        when().
+        get("/uuidzero").
+        then().
+        statusCode(200).
+        extract().response();
+    ResponseBody body = response.getBody();
+
+    assertThat(body.print()).isEqualTo("{\"uuid\":\"00000000-0000-0000-0000-000000000000\"}");
   }
 
 }
