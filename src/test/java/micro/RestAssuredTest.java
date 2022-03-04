@@ -3,10 +3,11 @@ package micro;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
-import javax.inject.Inject;
 
 import io.micronaut.runtime.server.EmbeddedServer;
 import io.restassured.http.ContentType;
+import jakarta.inject.Inject;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
