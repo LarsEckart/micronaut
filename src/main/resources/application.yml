@@ -1,6 +1,8 @@
 micronaut:
   application:
     name: micronaut
+  server:
+    port: ${PORT}
 endpoints:
   info:
     enabled: true
