@@ -1,4 +1,4 @@
-name: Continuous Deployment
+name: Test pull requests and merge
 
 on:
   pull_request:
