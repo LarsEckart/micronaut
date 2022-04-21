@@ -1,3 +1,6 @@
+micronaut:
+  server:
+    port: -1
 datasources:
   default:
     url: jdbc:tc:postgresql:11.6-alpine:///anyValueSinceIgnoredByTestContainers
