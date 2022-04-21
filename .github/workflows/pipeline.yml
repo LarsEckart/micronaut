@@ -27,7 +27,7 @@ jobs:
       - name: Test
         run: ./gradlew check --no-daemon --parallel --continue --build-cache
   auto-merge:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
