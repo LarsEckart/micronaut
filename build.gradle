@@ -35,7 +35,7 @@ dependencies {
     testImplementation 'org.testcontainers:junit-jupiter:1.17.3'
     testImplementation 'org.testcontainers:postgresql:1.17.3'
     testImplementation 'net.java.dev.jna:jna:5.12.1'
-    testImplementation('com.approvaltests:approvaltests:18.0.0')
+    testImplementation('com.approvaltests:approvaltests:18.2.2')
     implementation 'com.google.code.gson:gson:2.9.1'
     implementation 'org.jsoup:jsoup:1.15.3'
 }
