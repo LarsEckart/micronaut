@@ -17,9 +17,12 @@ dependencies {
     implementation("io.micronaut:micronaut-jackson-databind")
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-management")
+    implementation("io.micronaut:micronaut-tracing")
     implementation("jakarta.annotation:jakarta.annotation-api")
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
+    annotationProcessor("io.micronaut.tracing:micronaut-tracing-opentelemetry-annotation:5.0.0-SNAPSHOT")
+    implementation("io.opentelemetry:opentelemetry-exporter-otlp")
 
     testAnnotationProcessor(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     testAnnotationProcessor("io.micronaut:micronaut-inject-java")

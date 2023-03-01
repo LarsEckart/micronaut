@@ -12,6 +12,8 @@ import io.micronaut.http.annotation.QueryValue;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import io.micronaut.tracing.annotation.NewSpan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +35,7 @@ class HomeController {
     return HttpResponse.ok();
   }
 
+  @NewSpan("uuid")
   @Get("/npe")
   public HttpResponse<Void> getNpe() {
     log.info("Received request to /npe");
