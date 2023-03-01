@@ -35,7 +35,6 @@ class HomeController {
     return HttpResponse.ok();
   }
 
-  @NewSpan("uuid")
   @Get("/npe")
   public HttpResponse<Void> getNpe() {
     log.info("Received request to /npe");
@@ -55,6 +54,7 @@ class HomeController {
     }
   }
 
+  @NewSpan("uuid")
   @Get("/uuid")
   public HttpResponse<MyResponse> queryUuid() {
     MyResponse myResponse = new MyResponse(UUID.fromString("65b26f22-b751-411f-b7eb-5dd5c4a96db8"));
