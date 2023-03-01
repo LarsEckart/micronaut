@@ -1,7 +1,7 @@
 # my micronaut playground
 
-~~continuously deployed to heroku by travis.~~
+continuously deployed to railway.
 
+https://micronaut.up.railway.app/
 
-need to find a new hosting service.
-
+tracing to honeycomb is also setup
