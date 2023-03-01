@@ -21,8 +21,8 @@ dependencies {
     implementation("jakarta.annotation:jakarta.annotation-api")
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
-    annotationProcessor("io.micronaut.tracing:micronaut-tracing-opentelemetry-annotation:5.0.0-SNAPSHOT")
-    implementation("io.opentelemetry:opentelemetry-exporter-otlp")
+    annotationProcessor("io.micronaut.tracing:micronaut-tracing-opentelemetry-annotation:4.5.0")
+    implementation("io.opentelemetry:opentelemetry-exporter-otlp:1.23.1")
 
     testAnnotationProcessor(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     testAnnotationProcessor("io.micronaut:micronaut-inject-java")
