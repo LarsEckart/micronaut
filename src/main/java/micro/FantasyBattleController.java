@@ -1,14 +1,13 @@
 package micro;
 
-import java.util.Random;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import jakarta.inject.Inject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Random;
 
 @Controller
 class FantasyBattleController {
@@ -31,7 +30,7 @@ class FantasyBattleController {
         return HttpResponse.ok(inventory);
     }
 
-    static class Inventory{
+    static class Inventory {
         public Equipment equipment;
 
         public Inventory(Equipment equipment) {

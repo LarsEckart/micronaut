@@ -10,8 +10,8 @@ import org.reactivestreams.Publisher;
 @Filter("/**")
 public class TestFilter implements HttpFilter {
 
-  @Override
-  public Publisher<? extends HttpResponse<?>> doFilter(HttpRequest<?> request, FilterChain chain) {
-    return chain.proceed(request);
-  }
+    @Override
+    public Publisher<? extends HttpResponse<?>> doFilter(HttpRequest<?> request, FilterChain chain) {
+        return chain.proceed(request);
+    }
 }

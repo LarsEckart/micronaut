@@ -1,8 +1,9 @@
 package micro;
-import io.micronaut.context.annotation.Factory;
-import java.util.Random;
 
+import io.micronaut.context.annotation.Factory;
 import jakarta.inject.Singleton;
+
+import java.util.Random;
 
 @Factory
 public class BeanFactory {
