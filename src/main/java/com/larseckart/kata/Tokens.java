@@ -2,6 +2,7 @@ package com.larseckart.kata;
 
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Post;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 @Controller("/tokens")
 class Tokens {
 
-  @Get("/create")
+  @Post("/create")
   public Response createToken() {
     ZonedDateTime now = ZonedDateTime.now();
     Duration aliveUntil = Duration.ofMinutes(2);
