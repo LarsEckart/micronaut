@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar build/libs/micronaut-0.1-all.jar
+web: java $JAVA_OPTS -jar micronaut.jar
