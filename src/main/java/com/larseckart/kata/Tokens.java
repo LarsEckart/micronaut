@@ -5,6 +5,7 @@ import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
 import java.time.Duration;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +24,9 @@ class Tokens {
     String start = formatter.format(now);
     String end = formatter.format(expires);
 
-    return new Response("abc", "bear", aliveUntil.getSeconds(), "you", start, end);
+    int minute = LocalTime.now().getMinute();
+
+    return new Response("abc" + minute, "bear", aliveUntil.getSeconds(), "you", start, end);
   }
 
   record Response(

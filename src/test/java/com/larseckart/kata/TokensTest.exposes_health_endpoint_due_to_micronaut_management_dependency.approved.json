@@ -1,1 +1,1 @@
-"{\"access_token\":\"abc\",\"token_type\":\"bear\",\"expires_in\":120,\"requested_by\":\"you\",\"issued_at\":\"date\",\"expires_at\":\"date\"}"
+"{\"access_token\":\"[TOKEN]\",\"token_type\":\"bear\",\"expires_in\":120,\"requested_by\":\"you\",\"issued_at\":\"date\",\"expires_at\":\"date\"}"

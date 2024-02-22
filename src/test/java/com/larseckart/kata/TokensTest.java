@@ -8,9 +8,7 @@ import io.restassured.response.Response;
 import jakarta.inject.Inject;
 import org.approvaltests.JsonJacksonApprovals;
 import org.approvaltests.core.Options;
-import org.approvaltests.scrubbers.DateScrubber;
 import org.approvaltests.scrubbers.RegExScrubber;
-import org.approvaltests.scrubbers.Scrubbers;
 import org.junit.jupiter.api.Test;
 
 @MicronautTest
@@ -29,7 +27,11 @@ class TokensTest {
         .extract()
         .response();
 
-    JsonJacksonApprovals.verifyAsJson(response.getBody().print(), new Options(new RegExScrubber("\\b[A-Z][a-z]{2},\\s\\d{2}\\s[A-Z][a-z]{2}\\s\\d{4}\\s\\d{2}:\\d{2}:\\d{2}\\s[A-Z]{3}\\b", "date")));
+    String print = response.getBody().print();
+    String json = print.replaceAll("abc\\d\\d", "[TOKEN]");
+    JsonJacksonApprovals.verifyAsJson(json, new Options(new RegExScrubber(
+        "\\b[A-Z][a-z]{2},\\s\\d{2}\\s[A-Z][a-z]{2}\\s\\d{4}\\s\\d{2}:\\d{2}:\\d{2}\\s[A-Z]{3}\\b",
+        "date")));
   }
 
 }
