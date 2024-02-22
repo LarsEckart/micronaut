@@ -11,6 +11,7 @@ class Tokens {
 
   @Post("/create")
   public Response createToken() {
+    // TODO: read request body and fill requested_by accordingly
     ZonedDateTime now = ZonedDateTime.now();
     Duration aliveUntil = Duration.ofMinutes(2);
     ZonedDateTime expires = now.plus(aliveUntil);
@@ -26,8 +27,8 @@ class Tokens {
       String token_type,
       Long expires_in,
       String requested_by,
-      String issued,
-      String expires) {
+      String issued_at,
+      String expires_at) {
 
   }
 
