@@ -1,5 +1,7 @@
 package com.larseckart.kata;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
@@ -9,9 +11,12 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import org.slf4j.Logger;
 
 @Controller("/tokens")
 class Tokens {
+
+  private static final Logger log = getLogger(Tokens.class);
 
   @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
   @Post("/create")
@@ -26,7 +31,9 @@ class Tokens {
 
     int minute = LocalTime.now().getMinute();
 
-    return new Response("abc" + minute, "bear", aliveUntil.getSeconds(), "you", start, end);
+    String token = "abc" + minute;
+    log.info("Created token: " + token);
+    return new Response(token, "bear", aliveUntil.getSeconds(), "you", start, end);
   }
 
   record Response(
