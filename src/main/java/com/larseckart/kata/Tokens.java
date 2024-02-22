@@ -1,7 +1,6 @@
 package com.larseckart.kata;
 
 import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import java.time.Duration;
 import java.time.ZonedDateTime;
@@ -29,6 +28,7 @@ class Tokens {
       String requested_by,
       String issued,
       String expires) {
+
   }
 
 }
