@@ -48,12 +48,12 @@ dependencies {
 
 
 application {
-    mainClass.set("micro.Application")
+    mainClass.set("com.larseckart.Application")
 }
 
 java {
-    sourceCompatibility = JavaVersion.toVersion("17")
-    targetCompatibility = JavaVersion.toVersion("17")
+    sourceCompatibility = JavaVersion.toVersion("21")
+    targetCompatibility = JavaVersion.toVersion("21")
 }
 
 
