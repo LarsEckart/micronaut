@@ -58,7 +58,6 @@ class Tokens {
     syncCommands.hset(cacheKey, response.toMap());
     syncCommands.expire(cacheKey, aliveUntil.getSeconds());
     log.info("Created token: " + token);
-    connection.close();
     return response;
   }
 
