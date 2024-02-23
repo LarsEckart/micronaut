@@ -25,15 +25,11 @@ class Tokens {
   private static final Logger log = getLogger(Tokens.class);
 
   @Inject
-  RedisConfig redisConfig;
+  StatefulRedisConnection<String, String> connection;
 
   @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
   @Post("/create")
   public Response createToken(@Body String body) {
-    RedisClient redisClient = RedisClient.create(
-        "rediss://" + redisConfig.getPassword() + "@" + redisConfig.getUrl() + ":"
-            + redisConfig.getPort() + "/0");
-    StatefulRedisConnection<String, String> connection = redisClient.connect();
     RedisCommands<String, String> syncCommands = connection.sync();
     log.info("Received request to /tokens/create with body: " + body);
     RequestBody requestBody = Decoder.decode(body);
@@ -63,7 +59,6 @@ class Tokens {
     syncCommands.expire(cacheKey, aliveUntil.getSeconds());
     log.info("Created token: " + token);
     connection.close();
-    redisClient.shutdown();
     return response;
   }
 
