@@ -19,8 +19,6 @@ class FantasyBattleController {
 
     @Get("/inventory")
     public HttpResponse<Inventory> get() {
-        log.info("Received request to /");
-
         Item anyWeapon = new Item("any", rnd.nextInt(100), 17.0f);
         Item anyOffHand = new Item("any", 0, 0.5f);
         Item anyHelm = new Item("any", 0, 0.5f);

@@ -24,7 +24,6 @@ class HomeController {
 
     @Get
     public HttpResponse<Void> get() {
-        log.info("Received request to /");
         return HttpResponse.ok();
     }
 
@@ -37,7 +36,6 @@ class HomeController {
 
     @Get("/npe")
     public HttpResponse<Void> getNpe() {
-        log.info("Received request to /npe");
         List<String> l = new ArrayList<>();
         String none = null;
         l.add(none);

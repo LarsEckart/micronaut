@@ -31,7 +31,6 @@ class Tokens {
   @Post("/create")
   public Response createToken(@Body String body) {
     RedisCommands<String, String> syncCommands = connection.sync();
-    log.info("Received request to /tokens/create with body: " + body);
     RequestBody requestBody = Decoder.decode(body);
     String username = requestBody.username();
     String cacheKey = "server.tokens.tenant." + username;

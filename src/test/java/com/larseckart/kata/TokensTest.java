@@ -53,6 +53,16 @@ class TokensTest implements TestPropertyProvider {
             .then()
             .extract()
             .response();
+    Response response2 =
+        given()
+            .port(server.getPort())
+            .body("grant_type=password&username=test&password=1234")
+            .header("Content-Type", "application/x-www-form-urlencoded")
+            .when()
+            .post("/tokens/create")
+            .then()
+            .extract()
+            .response();
 
     String print = response.getBody().print();
     String json = print.replaceAll("abc\\d\\d\\d\\d?", "[TOKEN]");
