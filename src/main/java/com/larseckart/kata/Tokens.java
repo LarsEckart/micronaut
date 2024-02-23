@@ -3,6 +3,7 @@ package com.larseckart.kata;
 import static org.slf4j.LoggerFactory.getLogger;
 
 import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
@@ -18,12 +19,16 @@ class Tokens {
 
   private static final Logger log = getLogger(Tokens.class);
 
+
   @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
   @Post("/create")
-  public Response createToken() {
+  public Response createToken(@Body String body) {
+    log.info("Received request to /tokens/create with body: " + body);
+    RequestBody requestBody = Decoder.decode(body);
+
     // TODO: read request body and fill requested_by accordingly
     ZonedDateTime now = ZonedDateTime.now(ZoneId.of("GMT"));
-    Duration aliveUntil = Duration.ofMinutes(2);
+    Duration aliveUntil = Duration.ofSeconds(10);
     ZonedDateTime expires = now.plus(aliveUntil);
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss z");
     String start = formatter.format(now);
@@ -33,7 +38,7 @@ class Tokens {
 
     String token = "abc" + minute;
     log.info("Created token: " + token);
-    return new Response(token, "bear", aliveUntil.getSeconds(), "you", start, end);
+    return new Response(token, "bear", aliveUntil.getSeconds(), requestBody.username(), start, end);
   }
 
   record Response(
@@ -43,7 +48,6 @@ class Tokens {
       String requested_by,
       String issued_at,
       String expires_at) {
-
   }
 
 }

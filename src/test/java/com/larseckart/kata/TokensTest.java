@@ -21,6 +21,8 @@ class TokensTest {
   void exposes_health_endpoint_due_to_micronaut_management_dependency() {
     Response response = given()
         .port(server.getPort())
+        .body("grant_type=password&username=test&password=1234")
+        .header("Content-Type", "application/x-www-form-urlencoded")
         .when()
         .post("/tokens/create")
         .then()
