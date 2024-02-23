@@ -38,7 +38,8 @@ class Tokens {
     log.info("Received request to /tokens/create with body: " + body);
     RequestBody requestBody = Decoder.decode(body);
     String username = requestBody.username();
-    Map<String, String> existingToken = syncCommands.hgetall(username);
+    String cacheKey = "server.tokens.tenant." + username;
+    Map<String, String> existingToken = syncCommands.hgetall(cacheKey);
     if (!existingToken.isEmpty()) {
       log.info("Found existing toke n: " + existingToken);
       return Response.fromMap(existingToken);
@@ -58,8 +59,8 @@ class Tokens {
     String token = "abc" + minute + second;
 
     Response response = new Response(token, "bear", aliveUntil.getSeconds(), username, start, end);
-    syncCommands.hset(username, response.toMap());
-    syncCommands.expire(username, aliveUntil.getSeconds());
+    syncCommands.hset(cacheKey, response.toMap());
+    syncCommands.expire(cacheKey, aliveUntil.getSeconds());
     log.info("Created token: " + token);
     connection.close();
     redisClient.shutdown();
