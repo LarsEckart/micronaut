@@ -1,4 +1,19 @@
 micronaut:
+  application:
+    name: micronaut
   server:
     port: -1
-
+endpoints:
+  info:
+    enabled: true
+    sensitive: false
+  metrics:
+    enabled: true
+    sensitive: false
+  env:
+    enabled: true
+    sensitive: false
+redis:
+  url: "test"
+  port: "test"
+  password: "test"
