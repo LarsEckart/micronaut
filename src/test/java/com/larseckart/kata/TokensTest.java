@@ -12,6 +12,9 @@ import jakarta.inject.Inject;
 import java.util.Map;
 import org.approvaltests.JsonJacksonApprovals;
 import org.approvaltests.core.Options;
+import org.approvaltests.reporters.FileCaptureReporter;
+import org.approvaltests.reporters.Junit3Reporter;
+import org.approvaltests.reporters.UseReporter;
 import org.approvaltests.scrubbers.RegExScrubber;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -21,6 +24,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @MicronautTest
 @Testcontainers(disabledWithoutDocker = true)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@UseReporter(Junit3Reporter.class)
 class TokensTest implements TestPropertyProvider {
 
   @Container
@@ -68,7 +72,7 @@ class TokensTest implements TestPropertyProvider {
     String json = print.replaceAll("abc\\d\\d\\d\\d?", "[TOKEN]");
     JsonJacksonApprovals.verifyAsJson(json, new Options(new RegExScrubber(
         "\\b[A-Z][a-z]{2},\\s\\d{2}\\s[A-Z][a-z]{2}\\s\\d{4}\\s\\d{2}:\\d{2}:\\d{2}\\s[A-Z]{3}\\b",
-        "[DATE]")));
+        "[DATE]")).withReporter(new FileCaptureReporter()));
   }
 
 }
