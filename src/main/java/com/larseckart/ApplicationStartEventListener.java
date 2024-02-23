@@ -1,4 +1,4 @@
-package micro;
+package com.larseckart;
 
 import io.micronaut.context.event.ApplicationEventListener;
 import io.micronaut.runtime.server.event.ServerStartupEvent;

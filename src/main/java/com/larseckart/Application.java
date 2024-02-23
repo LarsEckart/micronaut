@@ -1,4 +1,4 @@
-package micro;
+package com.larseckart;
 
 import io.micronaut.runtime.Micronaut;
 
