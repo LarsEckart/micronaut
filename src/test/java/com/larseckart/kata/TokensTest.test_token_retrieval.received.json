@@ -1,1 +1,8 @@
-"{\"message\":\"Internal Server Error\",\"_embedded\":{\"errors\":[{\"message\":\"Internal Server Error: Error instantiating bean of type  [com.larseckart.kata.BeanFactory]\\n\\nMessage: Could not resolve placeholder ${REDIS_PORT}\\nPath Taken: new Tokens() --> Tokens.connection --> BeanFactory.config\"}]},\"_links\":{\"self\":{\"href\":\"/tokens/create\",\"templated\":false}}}"
+"{\"message\":\"Internal Server Error\",\"_embedded\":{\"errors\":[
+{\"message\":\"Internal Server Error: Error instantiating bean of type
+[com.larseckart.kata.BeanFactory]\\n\\nMessage:
+
+
+Could not resolve placeholder ${REDIS_PORT}\\nPath Taken: new Tokens() -->
+Tokens.connection -->
+BeanFactory.config\"}]},\"_links\":{\"self\":{\"href\":\"/tokens/create\",\"templated\":false}}}"

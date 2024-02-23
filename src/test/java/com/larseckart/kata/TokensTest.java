@@ -39,6 +39,7 @@ class TokensTest implements TestPropertyProvider {
     }
     return Map.of(
         "redis.url", container.getRedisURI(),
+        "redis.port", container.getFirstMappedPort().toString(),
         "redis.test", "true");
   }
 
