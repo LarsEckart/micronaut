@@ -2,17 +2,41 @@ package com.larseckart.kata;
 
 import static io.restassured.RestAssured.given;
 
+import com.redis.testcontainers.RedisContainer;
+import io.micronaut.core.annotation.NonNull;
 import io.micronaut.runtime.server.EmbeddedServer;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
+import io.micronaut.test.support.TestPropertyProvider;
 import io.restassured.response.Response;
 import jakarta.inject.Inject;
+import java.util.Map;
 import org.approvaltests.JsonJacksonApprovals;
 import org.approvaltests.core.Options;
 import org.approvaltests.scrubbers.RegExScrubber;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 @MicronautTest
-class TokensTest {
+@Testcontainers(disabledWithoutDocker = true)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class TokensTest implements TestPropertyProvider {
+
+  @Container
+  private static RedisContainer container = new RedisContainer(
+      RedisContainer.DEFAULT_IMAGE_NAME.withTag(RedisContainer.DEFAULT_TAG));
+
+
+  @Override
+  public @NonNull Map<String, String> getProperties() {
+    if (!container.isRunning()) {
+      container.start();
+    }
+    return Map.of(
+        "redis.url", container.getRedisURI(),
+        "redis.test", "true");
+  }
 
   @Inject
   EmbeddedServer server;

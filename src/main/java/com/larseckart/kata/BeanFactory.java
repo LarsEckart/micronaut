@@ -10,13 +10,17 @@ import jakarta.inject.Singleton;
 public class BeanFactory {
 
   @Inject
-  RedisConfig redisConfig;
+  RedisConfig config;
 
   @Singleton
   public StatefulRedisConnection<String, String> getStatefulRedisConnection() {
-    RedisClient redisClient = RedisClient.create(
-        "rediss://" + redisConfig.getPassword() + "@" + redisConfig.getUrl() + ":"
-            + redisConfig.getPort() + "/0");
+    if (config.isTest()) {
+      var redisClient = RedisClient.create(config.getUrl() + "/0");
+      return redisClient.connect();
+    }
+    var redisClient = RedisClient.create(
+        "rediss://" + config.getPassword() + "@" + config.getUrl() + ":" + config.getPort() + "/0");
+
     return redisClient.connect();
   }
 }
