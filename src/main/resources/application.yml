@@ -13,3 +13,7 @@ endpoints:
   env:
     enabled: true
     sensitive: false
+redis:
+  url: ${REDIS_URL}
+  port: ${REDIS_PORT}
+  password: ${REDIS_PASSWORD}

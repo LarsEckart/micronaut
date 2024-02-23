@@ -23,6 +23,8 @@ dependencies {
     implementation("io.micronaut:micronaut-validation")
     implementation("io.opentelemetry:opentelemetry-exporter-otlp:1.35.0")
 
+    implementation 'io.lettuce:lettuce-core:6.3.1.RELEASE'
+
     testAnnotationProcessor(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     testAnnotationProcessor("io.micronaut:micronaut-inject-java")
     testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
