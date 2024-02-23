@@ -30,7 +30,7 @@ class TokensTest {
         .response();
 
     String print = response.getBody().print();
-    String json = print.replaceAll("abc\\d\\d", "[TOKEN]");
+    String json = print.replaceAll("abc\\d\\d\\d\\d", "[TOKEN]");
     JsonJacksonApprovals.verifyAsJson(json, new Options(new RegExScrubber(
         "\\b[A-Z][a-z]{2},\\s\\d{2}\\s[A-Z][a-z]{2}\\s\\d{4}\\s\\d{2}:\\d{2}:\\d{2}\\s[A-Z]{3}\\b",
         "date")));

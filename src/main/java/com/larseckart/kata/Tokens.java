@@ -35,8 +35,9 @@ class Tokens {
     String end = formatter.format(expires);
 
     int minute = LocalTime.now().getMinute();
+    int second = LocalTime.now().getSecond();
 
-    String token = "abc" + minute;
+    String token = "abc" + minute + second;
     log.info("Created token: " + token);
     return new Response(token, "bear", aliveUntil.getSeconds(), requestBody.username(), start, end);
   }
