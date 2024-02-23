@@ -18,3 +18,9 @@ jobs:
           cache: gradle
       - name: Test
         run: ./gradlew check --no-daemon --parallel --continue --build-cache
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: build/reports/test/index.html
+          retention-days: 2
