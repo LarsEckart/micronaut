@@ -1,5 +1,8 @@
 # my micronaut playground
 
+deployed to heroku
 
 
-tracing to honeycomb is also setup
+uses Redis from upstash.com
+
+observability with honeycomb.io
