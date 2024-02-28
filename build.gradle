@@ -43,7 +43,7 @@ dependencies {
     testImplementation 'org.testcontainers:testcontainers:1.19.6'
     testImplementation 'org.testcontainers:junit-jupiter:1.19.6'
     testImplementation 'org.testcontainers:postgresql:1.19.6'
-    testImplementation "com.redis:testcontainers-redis:2.0.2"
+    testImplementation "com.redis:testcontainers-redis:2.1.0"
     testImplementation 'net.java.dev.jna:jna:5.14.0'
     testImplementation('com.approvaltests:approvaltests:22.4.0')
 }
