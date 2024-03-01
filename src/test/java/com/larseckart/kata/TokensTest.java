@@ -9,7 +9,10 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import io.micronaut.test.support.TestPropertyProvider;
 import io.restassured.response.Response;
 import jakarta.inject.Inject;
+import java.io.IOException;
 import java.util.Map;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
 import org.approvaltests.JsonJacksonApprovals;
 import org.approvaltests.core.Options;
 import org.approvaltests.reporters.FileCaptureReporter;
@@ -31,16 +34,23 @@ class TokensTest implements TestPropertyProvider {
   private static RedisContainer container = new RedisContainer(
       RedisContainer.DEFAULT_IMAGE_NAME.withTag(RedisContainer.DEFAULT_TAG));
 
+  static MockWebServer mockWebServer = new MockWebServer();
 
   @Override
   public @NonNull Map<String, String> getProperties() {
     if (!container.isRunning()) {
       container.start();
     }
+    try {
+      mockWebServer.start();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
     return Map.of(
         "redis.url", container.getRedisURI(),
         "redis.port", container.getFirstMappedPort().toString(),
-        "redis.test", "true");
+        "redis.test", "true",
+        "partner.url", mockWebServer.url("/").toString());
   }
 
   @Inject
@@ -48,6 +58,7 @@ class TokensTest implements TestPropertyProvider {
 
   @Test
   void test_token_retrieval() {
+    mockWebServer.enqueue(new MockResponse());
     Response response =
         given()
             .port(server.getPort())

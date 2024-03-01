@@ -11,6 +11,12 @@ import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
 import jakarta.inject.Inject;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -23,6 +29,9 @@ import org.slf4j.Logger;
 class Tokens {
 
   private static final Logger log = getLogger(Tokens.class);
+
+  @Inject
+  PartnerConfig partnerConfig;
 
   @Inject
   StatefulRedisConnection<String, String> connection;
@@ -52,6 +61,19 @@ class Tokens {
     int second = LocalTime.now().getSecond();
 
     String token = "abc" + minute + second;
+
+    try (HttpClient client = HttpClient.newHttpClient()) {
+      try {
+        HttpResponse<String> send = client.send(
+            HttpRequest.newBuilder()
+                .uri(URI.create(partnerConfig.url())).build(), BodyHandlers.ofString());
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+
+    }
 
     Response response = new Response(token, "bear", aliveUntil.getSeconds(), username, start, end);
     syncCommands.hset(cacheKey, response.toMap());

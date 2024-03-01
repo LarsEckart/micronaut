@@ -1,1 +1,0 @@
-"{\"message\":\"Internal Server Error\",\"_links\":{\"self\":{\"href\":\"/tokens/create\",\"templated\":false}},\"_embedded\":{\"errors\":[{\"message\":\"Internal Server Error: Error instantiating bean of type  [com.larseckart.kata.Tokens]\\n\\nMessage: Could not resolve placeholder ${PARTNER_URL}\\nPath Taken: new Tokens() --> Tokens.partnerConfig\"}]}}"

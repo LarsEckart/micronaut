@@ -17,3 +17,5 @@ redis:
   url: ${REDIS_URL}
   port: ${REDIS_PORT}
   password: ${REDIS_PASSWORD}
+partner:
+  url: ${PARTNER_URL}
