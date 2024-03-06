@@ -112,7 +112,7 @@ class Tokens {
   }
 
   @Get("/delete")
-  public String deleteEvents(@Body String body) {
+  public String deleteEvents() {
     try (HttpClient client = HttpClient.newHttpClient()) {
       try {
         HttpResponse<String> send = client.send(
