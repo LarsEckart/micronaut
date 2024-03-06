@@ -9,6 +9,7 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import jakarta.inject.Inject;
 import java.io.IOException;
@@ -110,8 +111,7 @@ class Tokens {
     }
   }
 
-  @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-  @Post("/delete")
+  @Get("/delete")
   public String deleteEvents(@Body String body) {
     try (HttpClient client = HttpClient.newHttpClient()) {
       try {
