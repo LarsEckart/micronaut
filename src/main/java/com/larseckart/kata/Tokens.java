@@ -72,7 +72,6 @@ class Tokens {
       } catch (InterruptedException e) {
         throw new RuntimeException(e);
       }
-
     }
 
     Response response = new Response(token, "bear", aliveUntil.getSeconds(), username, start, end);
@@ -111,4 +110,20 @@ class Tokens {
     }
   }
 
+  @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
+  @Post("/delete")
+  public String deleteEvents(@Body String body) {
+    try (HttpClient client = HttpClient.newHttpClient()) {
+      try {
+        HttpResponse<String> send = client.send(
+            HttpRequest.newBuilder()
+                .uri(URI.create(partnerConfig.url() + "/delete")).build(), BodyHandlers.ofString());
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    return "ok";
+  }
 }
