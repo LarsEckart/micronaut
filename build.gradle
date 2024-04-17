@@ -26,7 +26,7 @@ dependencies {
     implementation("io.opentelemetry:opentelemetry-exporter-otlp:1.37.0")
 
     implementation 'io.lettuce:lettuce-core:6.3.2.RELEASE'
-    implementation('io.honeycomb:honeycomb-opentelemetry-sdk:1.6.0')
+    implementation('io.honeycomb:honeycomb-opentelemetry-sdk:1.7.0')
 
 
     testImplementation("io.micronaut:micronaut-http-client")
