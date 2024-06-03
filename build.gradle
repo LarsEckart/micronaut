@@ -22,7 +22,7 @@ dependencies {
     implementation("jakarta.annotation:jakarta.annotation-api")
     runtimeOnly("org.yaml:snakeyaml")
     runtimeOnly("ch.qos.logback:logback-classic")
-    implementation 'io.micronaut.validation:micronaut-validation:4.5.0'
+    implementation 'io.micronaut.validation:micronaut-validation:4.6.0'
     implementation("io.opentelemetry:opentelemetry-exporter-otlp:1.38.0")
 
     implementation 'io.lettuce:lettuce-core:6.3.2.RELEASE'
