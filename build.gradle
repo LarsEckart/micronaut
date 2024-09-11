@@ -23,7 +23,7 @@ dependencies {
     runtimeOnly("org.yaml:snakeyaml")
     runtimeOnly("ch.qos.logback:logback-classic")
     implementation 'io.micronaut.validation:micronaut-validation:4.7.0'
-    implementation("io.opentelemetry:opentelemetry-exporter-otlp:1.42.0")
+    implementation("io.opentelemetry:opentelemetry-exporter-otlp:1.42.1")
 
     implementation 'io.lettuce:lettuce-core:6.4.0.RELEASE'
     implementation('io.honeycomb:honeycomb-opentelemetry-sdk:1.7.0')
